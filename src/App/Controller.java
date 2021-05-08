@@ -27,6 +27,8 @@ public class Controller implements Initializable {
     private int iterator = 0;
     private String selectedAnswer;
     private static final int MAX_POINTS = 15;
+    private boolean confirmationInProgress = false;
+    private boolean answerSelected = false;
 
     private String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
@@ -62,22 +64,12 @@ public class Controller implements Initializable {
     private Label AwordLabel = new Label(), BwordLabel = new Label(), CwordLabel = new Label(), DwordLabel = new Label();
 
     @FXML
-    private Label prizeLabel1000000, prizeLabel500000, prizeLabel250000, prizeLabel150000,
-                  prizeLabel75000, prizeLabel50000, prizeLabel25000, prizeLabel15000,
-                  prizeLabel10000, prizeLabel7500, prizeLabel5000, prizeLabel3000,
-                  prizeLabel2000, prizeLabel1000, prizeLabel500;
-
-    private List<Label> prizeLabelList;
-
-    @FXML
     private VBox prizeListVBox;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         prepareQuestions();
         prepareNewQuizQuestion();
-
-
 
     }
 
@@ -88,7 +80,6 @@ public class Controller implements Initializable {
         Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         appStage.setScene(scene);
         appStage.show();
-
     }
 
     private void prepareNewQuizQuestion() {
@@ -110,7 +101,7 @@ public class Controller implements Initializable {
             Iterator<Integer> iter = randomDistinctNumbs.iterator();
 
             if (questionLabel != null) {
-                questionLabel.setText(questions.get(iterator * 4));
+                questionLabel.setText(questions.get(iterator));
             }
             if (answerLabelA != null) {
                 answerLabelA.setText(answers.get(iterator * 4 + iter.next()));
@@ -130,20 +121,41 @@ public class Controller implements Initializable {
 
     @FXML
     private void onConfirmButtonClick() {
-        PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
-        pt1.setOnFinished(e -> highlightCorrectAnswer());
-        pt1.playFromStart();
-        if(checkAnswer()) {
-            System.out.println("congratulations!");
-            PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
-            pt2.setOnFinished(e -> {
-                prepareNewQuizQuestion();
-            });
-            pt2.playFromStart();
-
-        } else {
-            System.out.println("game over");
+        if(answerSelected) {
+            if (!confirmationInProgress) {
+                confirmationInProgress = true;
+                PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
+                pt1.setOnFinished(e -> highlightCorrectAnswer());
+                pt1.playFromStart();
+                if (checkAnswer()) {
+                    System.out.println("congratulations!");
+                    PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
+                    pt2.setOnFinished(e -> {
+                        prepareNewQuizQuestion();
+                        confirmationInProgress = false;
+                        answerSelected = false;
+                    });
+                    pt2.playFromStart();
+                } else {
+                    System.out.println("game over");
+                }
+            }
         }
+    }
+
+    @FXML
+    private void fiftyFiftyLabelClick() {
+        System.out.println("git1");
+    }
+
+    @FXML
+    private void phoneLabelClick() {
+        System.out.println("git2");
+    }
+
+    @FXML
+    private void votingLabelClick() {
+        System.out.println("git3");
     }
 
     private void highlightCorrectAnswer() {
@@ -172,38 +184,46 @@ public class Controller implements Initializable {
 
     @FXML
     private void answerChoiceLabelA() {
-        setEveryAnswerLabelToDefault();
-        answerLabelA.setStyle(formatSelectedLabelString);
-
-        AwordLabel.setStyle("-fx-text-fill: white;");
-        selectedAnswer = answerLabelA.getText();
+        if(!confirmationInProgress) {
+            answerSelected = true;
+            setEveryAnswerLabelToDefault();
+            answerLabelA.setStyle(formatSelectedLabelString);
+            AwordLabel.setStyle("-fx-text-fill: white;");
+            selectedAnswer = answerLabelA.getText();
+        }
     }
 
     @FXML
     private void answerChoiceLabelB() {
-        setEveryAnswerLabelToDefault();
-        answerLabelB.setStyle(formatSelectedLabelString);
-
-        BwordLabel.setStyle("-fx-text-fill: white;");
-        selectedAnswer = answerLabelB.getText();
+        if(!confirmationInProgress) {
+            answerSelected = true;
+            setEveryAnswerLabelToDefault();
+            answerLabelB.setStyle(formatSelectedLabelString);
+            BwordLabel.setStyle("-fx-text-fill: white;");
+            selectedAnswer = answerLabelB.getText();
+        }
     }
 
     @FXML
     private void answerChoiceLabelC() {
-        setEveryAnswerLabelToDefault();
-        answerLabelC.setStyle(formatSelectedLabelString);
-
-        CwordLabel.setStyle("-fx-text-fill: white;");
-        selectedAnswer = answerLabelC.getText();
+        if(!confirmationInProgress) {
+            answerSelected = true;
+            setEveryAnswerLabelToDefault();
+            answerLabelC.setStyle(formatSelectedLabelString);
+            CwordLabel.setStyle("-fx-text-fill: white;");
+            selectedAnswer = answerLabelC.getText();
+        }
     }
 
     @FXML
     private void answerChoiceLabelD() {
-        setEveryAnswerLabelToDefault();
-        answerLabelD.setStyle(formatSelectedLabelString);
-
-        DwordLabel.setStyle("-fx-text-fill: white;");
-        selectedAnswer = answerLabelD.getText();
+        if(!confirmationInProgress) {
+            answerSelected = true;
+            setEveryAnswerLabelToDefault();
+            answerLabelD.setStyle(formatSelectedLabelString);
+            DwordLabel.setStyle("-fx-text-fill: white;");
+            selectedAnswer = answerLabelD.getText();
+        }
     }
 
     private boolean checkAnswer() {

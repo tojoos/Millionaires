@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.image.*?>
@@ -12,7 +14,7 @@
    <children>
       <VBox fx:id="prizeListVBox" alignment="CENTER" prefHeight="720.0" prefWidth="160.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff);" AnchorPane.leftAnchor="0.0">
          <children>
-            <Label fx:id="prizeLabel1000000" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="140.0" text="1 000 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="140.0" text="1 000 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -23,7 +25,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel500000" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="500 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="500 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -34,7 +36,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel250000" alignment="CENTER" layoutX="25.0" layoutY="52.0" prefHeight="30.0" prefWidth="140.0" text="250 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="25.0" layoutY="52.0" prefHeight="30.0" prefWidth="140.0" text="250 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -45,7 +47,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel150000" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="150 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="150 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -56,7 +58,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel75000" alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="75 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="75 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -67,7 +69,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel50000" alignment="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="50 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="50 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -78,7 +80,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel25000" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="25 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="25 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -89,7 +91,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel15000" alignment="CENTER" layoutX="25.0" layoutY="52.0" prefHeight="30.0" prefWidth="140.0" text="15 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="25.0" layoutY="52.0" prefHeight="30.0" prefWidth="140.0" text="15 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -100,7 +102,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel10000" alignment="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="10 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="10 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -111,7 +113,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel7500" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="73.0" prefHeight="30.0" prefWidth="140.0" text="7 500 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="73.0" prefHeight="30.0" prefWidth="140.0" text="7 500 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -122,7 +124,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel5000" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="5 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="5 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -133,7 +135,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel3000" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="136.0" prefHeight="30.0" prefWidth="140.0" text="3 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="136.0" prefHeight="30.0" prefWidth="140.0" text="3 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -144,7 +146,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel2000" alignment="CENTER" layoutX="25.0" layoutY="115.0" prefHeight="30.0" prefWidth="140.0" text="2 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="25.0" layoutY="115.0" prefHeight="30.0" prefWidth="140.0" text="2 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -155,7 +157,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel1000" alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="157.0" prefHeight="30.0" prefWidth="140.0" text="1 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="157.0" prefHeight="30.0" prefWidth="140.0" text="1 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -166,7 +168,7 @@
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="prizeLabel500" alignment="CENTER" layoutX="25.0" layoutY="94.0" prefHeight="30.0" prefWidth="140.0" text="500 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" layoutX="25.0" layoutY="94.0" prefHeight="30.0" prefWidth="140.0" text="500 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Times New Roman" size="21.0" />
                </font>
@@ -247,5 +249,23 @@
             <Font size="17.0" />
          </font>
       </Button>
+      <Ellipse fx:id="fiftyFiftyLabel" fill="DODGERBLUE" layoutX="505.0" layoutY="37.0" onMouseClicked="#fiftyFiftyLabelClick" radiusX="50.0" radiusY="23.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(#001299, #4d61ff); -fx-stroke: linear-gradient(#bdbcbc,#676565);" />
+      <Ellipse fx:id="phoneLabel" fill="WHITE" layoutX="714.0" layoutY="37.0" onMouseClicked="#phoneLabelClick" radiusX="50.0" radiusY="23.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(#001299, #4d61ff); -fx-stroke: linear-gradient(#bdbcbc,#676565);" />
+      <Ellipse fx:id="votingLabel" fill="DODGERBLUE" layoutX="922.0" layoutY="37.0" onMouseClicked="#votingLabelClick" radiusX="50.0" radiusY="23.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(#001299, #4d61ff); -fx-stroke: linear-gradient(#bdbcbc,#676565);" />
+      <Text disable="true" fill="WHITE" layoutX="479.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="50:50" wrappingWidth="52.0">
+         <font>
+            <Font name="Times New Roman Bold" size="22.0" />
+         </font>
+      </Text>
+      <ImageView disable="true" fitHeight="46.0" fitWidth="46.0" layoutX="899.0" layoutY="14.0">
+         <image>
+            <Image url="@images/vote_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView disable="true" fitHeight="52.0" fitWidth="52.0" layoutX="688.0" layoutY="11.0">
+         <image>
+            <Image url="@images/phone_icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
