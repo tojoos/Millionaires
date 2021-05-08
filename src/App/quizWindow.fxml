@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.chart.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
@@ -282,5 +283,33 @@
             <Image url="@images/redcross_icon.png" />
          </image>
       </ImageView>
+      <Pane fx:id="phoneCallPane" layoutX="204.0" layoutY="162.0" prefHeight="280.0" prefWidth="275.0" visible="false">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="294.0" layoutX="-7.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(#001299, #4d61ff); -fx-stroke: linear-gradient(#bdbcbc,#676565); -fx-arc-height: 20; -fx-arc-width: 20;" width="290.0" />
+            <ImageView fitHeight="209.0" fitWidth="209.0" layoutX="33.0" layoutY="14.0">
+               <image>
+                  <Image url="@images/phoneCallPerson.png" />
+               </image>
+            </ImageView>
+            <Label fx:id="phoneCallLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="223.0" prefHeight="52.0" prefWidth="240.0" text="I think it will be answer A, but i am not entirely sure." textAlignment="CENTER" textFill="WHITE" wrapText="true">
+               <font>
+                  <Font name="Times New Roman" size="20.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Pane fx:id="votePane" layoutX="583.0" layoutY="162.0" prefHeight="280.0" prefWidth="275.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="294.0" layoutX="-7.0" layoutY="-7.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: linear-gradient(#001299, #4d61ff); -fx-stroke: linear-gradient(#bdbcbc,#676565); -fx-arc-height: 20; -fx-arc-width: 20;" width="290.0" />
+            <BarChart fx:id="voteChart" layoutX="8.0" layoutY="27.0" legendSide="TOP" legendVisible="false" prefHeight="227.0" prefWidth="261.0">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis prefHeight="0.0" prefWidth="0.0" side="LEFT" />
+              </yAxis>
+            </BarChart>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

@@ -7,8 +7,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -33,6 +35,7 @@ public class Controller implements Initializable {
     private boolean fiftyFiftyUsed = false;
     private boolean phoneCallUsed = false;
     private boolean votingUsed = false;
+    private static final double PHONE_CALL_ACCURACY = 0.75;
 
     private String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
@@ -166,11 +169,33 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private Pane phoneCallPane = new Pane();
+
+    @FXML
+    private Label phoneCallLabel = new Label();
+
+    @FXML
+    private Pane votePane = new Pane();
+
+    @FXML
+    private XYChart<String, Integer> voteChart;
+
+    @FXML
     private void phoneLabelClick() {
         if(!phoneCallUsed) {
             phoneCallUsed = true;
             phoneCross.setOpacity(1.0);
-            
+            phoneCallPane.setVisible(true);
+            String callAnswer = "I think it will be answer: ";
+            Random rand = new Random();
+            if(rand.nextDouble() < PHONE_CALL_ACCURACY) { //case where phone call is accurate
+                callAnswer += correctAnswers.get(iterator-1);
+            } else {                       //case when it's not accurate answer (random answer)
+                callAnswer += answers.get(4*(iterator-1) + (rand.nextInt(4)));
+            }
+            callAnswer += ", but i am not entirely sure.";
+            if(phoneCallLabel!=null)
+                phoneCallLabel.setText(callAnswer);
         }
     }
 
@@ -179,12 +204,27 @@ public class Controller implements Initializable {
         if(!votingUsed) {
             votingUsed = true;
             voteCross.setOpacity(1.0);
+            votePane.setVisible(true);
+
+            XYChart.Series<String, Integer> votingSeries = new XYChart.Series<>();
+            votingSeries.getData().add(new XYChart.Data<>("A", 32));
+            votingSeries.getData().add(new XYChart.Data<>("B", 11));
+            votingSeries.getData().add(new XYChart.Data<>("C", 66));
+            votingSeries.getData().add(new XYChart.Data<>("D", 4));
+            voteChart.getData().addAll(votingSeries);
+
         }
     }
 
     private void prepareNewQuizQuestion() {
         setEveryAnswerLabelToDefault();
         setEverythingVisible();
+        if(phoneCallPane.isVisible())
+            phoneCallPane.setVisible(false);
+
+        if(votePane.isVisible())
+            votePane.setVisible(false);
+
         if(iterator>0) {
             prizeListVBox.getChildren().get(prizeListVBox.getChildren().size()-iterator).setStyle(null);
         }
