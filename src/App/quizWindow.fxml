@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.Controller">
+   <children>
+      <VBox alignment="CENTER" prefHeight="720.0" prefWidth="160.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff);" AnchorPane.leftAnchor="0.0">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="140.0" text="1 000 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="500 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="25.0" layoutY="52.0" prefHeight="30.0" prefWidth="140.0" text="250 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="150 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="75 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="50 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="25 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="25.0" layoutY="52.0" prefHeight="30.0" prefWidth="140.0" text="15 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="25.0" layoutY="31.0" prefHeight="30.0" prefWidth="140.0" text="10 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="73.0" prefHeight="30.0" prefWidth="140.0" text="7 500 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="10.0" prefHeight="30.0" prefWidth="140.0" text="5 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="136.0" prefHeight="30.0" prefWidth="140.0" text="3 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="25.0" layoutY="115.0" prefHeight="30.0" prefWidth="140.0" text="2 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="25.0" layoutY="157.0" prefHeight="30.0" prefWidth="140.0" text="1 000 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label alignment="CENTER" layoutX="25.0" layoutY="94.0" prefHeight="30.0" prefWidth="140.0" text="500 $" textAlignment="CENTER" textFill="#f49e0a" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Times New Roman" size="21.0" />
+               </font>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
+      <ImageView fitHeight="726.0" fitWidth="1120.0" layoutX="160.0" layoutY="-1.0">
+         <image>
+            <Image url="@images/quiz%20background.jpg" />
+         </image>
+      </ImageView>
+      <Label fx:id="questionLabel" alignment="CENTER" layoutX="271.0" layoutY="505.0" prefHeight="59.0" prefWidth="885.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-background-radius: 10; -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="22.0" />
+         </font></Label>
+      <Label fx:id="answerLabelD" layoutX="872.0" layoutY="639.0" onMouseClicked="#answerChoiceLabelD" prefHeight="45.0" prefWidth="284.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10; -fx-background-radius: 10;" textFill="WHITE">
+         <padding>
+            <Insets left="30.0" top="3.0" />
+         </padding>
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font></Label>
+      <Label fx:id="answerLabelB" layoutX="872.0" layoutY="585.0" onMouseClicked="#answerChoiceLabelB" prefHeight="45.0" prefWidth="284.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10; -fx-background-radius: 10;" textFill="WHITE">
+         <padding>
+            <Insets left="30.0" top="5.0" />
+         </padding>
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font></Label>
+      <Label fx:id="answerLabelA" layoutX="271.0" layoutY="585.0" onMouseClicked="#answerChoiceLabelA" prefHeight="45.0" prefWidth="284.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10; -fx-background-radius: 10;" textFill="WHITE">
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="30.0" top="5.0" />
+         </padding>
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font></Label>
+      <Label fx:id="answerLabelC" layoutX="271.0" layoutY="639.0" onMouseClicked="#answerChoiceLabelC" prefHeight="45.0" prefWidth="284.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10; -fx-background-radius: 10;" textFill="WHITE">
+         <padding>
+            <Insets left="30.0" top="3.0" />
+         </padding>
+         <font>
+            <Font name="Times New Roman" size="16.0" />
+         </font></Label>
+      <Label fx:id="AwordLabel" layoutX="279.0" layoutY="594.0" text="A:" textFill="#f49e0a">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="CwordLabel" layoutX="280.0" layoutY="647.0" text="C:" textFill="#f49e0a">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="BwordLabel" layoutX="882.0" layoutY="594.0" text="B:" textFill="#f49e0a">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="DwordLabel" layoutX="881.0" layoutY="646.0" text="D:" textFill="#f49e0a">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Label>
+      <Button fx:id="confirmButton" alignment="CENTER" layoutX="1046.0" layoutY="448.0" mnemonicParsing="false" onAction="#onConfirmButtonClick" prefHeight="39.0" prefWidth="110.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10; -fx-background-radius: 10;" text="Confirm" textFill="#f49e0a">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
