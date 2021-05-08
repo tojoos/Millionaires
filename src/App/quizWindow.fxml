@@ -224,22 +224,22 @@
          <font>
             <Font name="Times New Roman" size="16.0" />
          </font></Label>
-      <Label fx:id="AwordLabel" layoutX="279.0" layoutY="594.0" text="A:" textFill="#f49e0a">
+      <Label fx:id="AwordLabel" disable="true" layoutX="279.0" layoutY="594.0" opacity="0.98" text="A:" textFill="#f49e0a">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="CwordLabel" layoutX="280.0" layoutY="647.0" text="C:" textFill="#f49e0a">
+      <Label fx:id="CwordLabel" disable="true" layoutX="280.0" layoutY="647.0" opacity="0.98" text="C:" textFill="#f49e0a">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="BwordLabel" layoutX="882.0" layoutY="594.0" text="B:" textFill="#f49e0a">
+      <Label fx:id="BwordLabel" disable="true" layoutX="882.0" layoutY="594.0" opacity="0.98" text="B:" textFill="#f49e0a">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <Label fx:id="DwordLabel" layoutX="881.0" layoutY="646.0" text="D:" textFill="#f49e0a">
+      <Label fx:id="DwordLabel" disable="true" layoutX="881.0" layoutY="646.0" opacity="0.98" text="D:" textFill="#f49e0a">
          <font>
             <Font size="20.0" />
          </font>
@@ -265,6 +265,21 @@
       <ImageView disable="true" fitHeight="52.0" fitWidth="52.0" layoutX="688.0" layoutY="11.0">
          <image>
             <Image url="@images/phone_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="fiftyFiftyCross" disable="true" fitHeight="40.0" fitWidth="52.0" layoutX="479.0" layoutY="17.0" opacity="0.0">
+         <image>
+            <Image url="@images/redcross_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="phoneCross" disable="true" fitHeight="40.0" fitWidth="52.0" layoutX="688.0" layoutY="17.0" opacity="0.0">
+         <image>
+            <Image url="@images/redcross_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="voteCross" disable="true" fitHeight="40.0" fitWidth="52.0" layoutX="896.0" layoutY="17.0" opacity="0.0">
+         <image>
+            <Image url="@images/redcross_icon.png" />
          </image>
       </ImageView>
    </children>

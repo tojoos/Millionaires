@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -29,6 +30,9 @@ public class Controller implements Initializable {
     private static final int MAX_POINTS = 15;
     private boolean confirmationInProgress = false;
     private boolean answerSelected = false;
+    private boolean fiftyFiftyUsed = false;
+    private boolean phoneCallUsed = false;
+    private boolean votingUsed = false;
 
     private String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
@@ -66,11 +70,13 @@ public class Controller implements Initializable {
     @FXML
     private VBox prizeListVBox;
 
+    @FXML
+    private ImageView fiftyFiftyCross, phoneCross, voteCross;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         prepareQuestions();
         prepareNewQuizQuestion();
-
     }
 
     @FXML
@@ -82,8 +88,103 @@ public class Controller implements Initializable {
         appStage.show();
     }
 
+
+    @FXML
+    private void onConfirmButtonClick() {
+        if(answerSelected) {
+            if (!confirmationInProgress) {
+                confirmationInProgress = true;
+                PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
+                pt1.setOnFinished(e -> highlightCorrectAnswer());
+                pt1.playFromStart();
+                if (checkAnswer()) {
+                    System.out.println("congratulations!");
+                    PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
+                    pt2.setOnFinished(e -> {
+                        prepareNewQuizQuestion();
+                        confirmationInProgress = false;
+                        answerSelected = false;
+                    });
+                    pt2.playFromStart();
+                } else {
+                    System.out.println("game over");
+                }
+            }
+        }
+    }
+
+    private void setEverythingVisible() {
+        answerLabelA.setVisible(true);
+        AwordLabel.setVisible(true);
+
+        answerLabelB.setVisible(true);
+        BwordLabel.setVisible(true);
+
+        answerLabelC.setVisible(true);
+        CwordLabel.setVisible(true);
+
+        answerLabelD.setVisible(true);
+        DwordLabel.setVisible(true);
+    }
+
+    @FXML
+    private void fiftyFiftyLabelClick() {
+        if(!fiftyFiftyUsed) {
+            fiftyFiftyUsed = true;
+            fiftyFiftyCross.setOpacity(1.0);
+            Random rand = new Random();
+            Set<Integer> twoRandomWrongAnswers = new LinkedHashSet<>();
+            while(twoRandomWrongAnswers.size() < 2) {
+                int randomNumber = rand.nextInt(4);
+                if(randomNumber == 0) {
+                    if (!correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
+                        twoRandomWrongAnswers.add(randomNumber);
+                        answerLabelA.setVisible(false);
+                        AwordLabel.setVisible(false);
+                    }
+                } else if(randomNumber == 1) {
+                    if (!correctAnswers.get(iterator-1).equals(answerLabelB.getText())) {
+                        twoRandomWrongAnswers.add(randomNumber);
+                        answerLabelB.setVisible(false);
+                        BwordLabel.setVisible(false);
+                    }
+                }else if(randomNumber == 2) {
+                    if (!correctAnswers.get(iterator-1).equals(answerLabelC.getText())) {
+                        twoRandomWrongAnswers.add(randomNumber);
+                        answerLabelC.setVisible(false);
+                        CwordLabel.setVisible(false);
+                    }
+                } else {
+                    if (!correctAnswers.get(iterator-1).equals(answerLabelD.getText())) {
+                        twoRandomWrongAnswers.add(randomNumber);
+                        answerLabelD.setVisible(false);
+                        DwordLabel.setVisible(false);
+                    }
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void phoneLabelClick() {
+        if(!phoneCallUsed) {
+            phoneCallUsed = true;
+            phoneCross.setOpacity(1.0);
+            
+        }
+    }
+
+    @FXML
+    private void votingLabelClick() {
+        if(!votingUsed) {
+            votingUsed = true;
+            voteCross.setOpacity(1.0);
+        }
+    }
+
     private void prepareNewQuizQuestion() {
         setEveryAnswerLabelToDefault();
+        setEverythingVisible();
         if(iterator>0) {
             prizeListVBox.getChildren().get(prizeListVBox.getChildren().size()-iterator).setStyle(null);
         }
@@ -117,45 +218,6 @@ public class Controller implements Initializable {
             }
         }
         iterator++;
-    }
-
-    @FXML
-    private void onConfirmButtonClick() {
-        if(answerSelected) {
-            if (!confirmationInProgress) {
-                confirmationInProgress = true;
-                PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
-                pt1.setOnFinished(e -> highlightCorrectAnswer());
-                pt1.playFromStart();
-                if (checkAnswer()) {
-                    System.out.println("congratulations!");
-                    PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
-                    pt2.setOnFinished(e -> {
-                        prepareNewQuizQuestion();
-                        confirmationInProgress = false;
-                        answerSelected = false;
-                    });
-                    pt2.playFromStart();
-                } else {
-                    System.out.println("game over");
-                }
-            }
-        }
-    }
-
-    @FXML
-    private void fiftyFiftyLabelClick() {
-        System.out.println("git1");
-    }
-
-    @FXML
-    private void phoneLabelClick() {
-        System.out.println("git2");
-    }
-
-    @FXML
-    private void votingLabelClick() {
-        System.out.println("git3");
     }
 
     private void highlightCorrectAnswer() {
