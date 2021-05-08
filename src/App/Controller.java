@@ -1,5 +1,6 @@
 package App;
 
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -42,11 +44,16 @@ public class Controller implements Initializable {
                     "-fx-border-radius: 10;" +
                     "-fx-text-fill: white;";
 
-    @FXML
-    private Label answerLabelA, answerLabelB, answerLabelC, answerLabelD, questionLabel;
+    private String correctAnswerStyleSheet = "-fx-background-color: #00b300;" +
+            "-fx-border-color:  linear-gradient(#bdbcbc,#676565);" +
+            "-fx-border-radius: 10;" +
+            "-fx-background-radius: 10;";
 
     @FXML
-    private Label AwordLabel, BwordLabel, CwordLabel, DwordLabel;
+    private Label answerLabelA = new Label(), answerLabelB = new Label(), answerLabelC = new Label(), answerLabelD = new Label(), questionLabel = new Label();
+
+    @FXML
+    private Label AwordLabel = new Label(), BwordLabel = new Label(), CwordLabel = new Label(), DwordLabel = new Label();
 
 
     @Override
@@ -66,6 +73,7 @@ public class Controller implements Initializable {
     }
 
     private void prepareNewQuizQuestion() {
+        setEveryAnswerLabelToDefault();
         if(iterator != MAX_POINTS) {
             if (questionLabel != null) {
                 questionLabel.setText(questions.get(iterator));
@@ -88,26 +96,21 @@ public class Controller implements Initializable {
     }
 
     @FXML
-    private void onConfirmButtonClick() throws InterruptedException {
-
-        Thread.sleep(1000);
-        highlightCorrectAnswer();
-        System.out.println(correctAnswers.get(iterator-1));
-        Thread.sleep(2000);
-        System.out.println("po odczekaniu");
-
+    private void onConfirmButtonClick() {
+        PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
+        pt1.setOnFinished(e -> highlightCorrectAnswer());
+        pt1.playFromStart();
         if(checkAnswer()) {
             currentPoints++;
-            prepareNewQuizQuestion();
+            System.out.println("gratulacje!");
+            PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
+            pt2.setOnFinished(e -> prepareNewQuizQuestion());
+            pt2.playFromStart();
+
         } else {
             System.out.println("game over");
         }
     }
-
-    private String correctAnswerStyleSheet = "-fx-background-color: #00e600;" +
-            "-fx-border-color:  linear-gradient(#bdbcbc,#676565);" +
-            "-fx-border-radius: 10;" +
-            "-fz-background-radius: 10;";
 
     private void highlightCorrectAnswer() {
         if(correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
@@ -120,7 +123,6 @@ public class Controller implements Initializable {
             answerLabelD.setStyle(correctAnswerStyleSheet);
         }
     }
-
 
     private void setEveryAnswerLabelToDefault() {
         answerLabelA.setStyle(formatToDefaultLabelString);
