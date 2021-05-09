@@ -20,27 +20,22 @@
                   <Image url="@images/icon.png" />
                </image>
             </ImageView>
-            <Button layoutX="130.0" layoutY="288.0" mnemonicParsing="false" onAction="#onNewGameButton" prefHeight="28.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="NEW GAME">
+            <Button layoutX="136.0" layoutY="307.0" mnemonicParsing="false" onAction="#onNewGameButton" prefHeight="28.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="NEW GAME">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="130.0" layoutY="340.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="RANKING">
+            <Button layoutX="136.0" layoutY="359.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="RANKING">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Label alignment="CENTER" layoutX="968.0" layoutY="325.0" prefHeight="33.0" prefWidth="151.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 10;" text="Enter your name:">
+            <Button layoutX="963.0" layoutY="359.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="HELP">
                <font>
-                  <Font name="Times New Roman" size="18.0" />
+                  <Font name="Times New Roman" size="20.0" />
                </font>
-            </Label>
-            <TextField layoutX="969.0" layoutY="385.0" prefHeight="1.0" prefWidth="149.0" promptText="name" style="-fx-background-radius: 10;">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </TextField>
-            <Button layoutX="130.0" layoutY="393.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="LOAD SCRIPT">
+            </Button>
+            <Button layoutX="963.0" layoutY="307.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="LOAD SCRIPT">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
