@@ -20,12 +20,12 @@
                   <Image url="@images/icon.png" />
                </image>
             </ImageView>
-            <Button layoutX="130.0" layoutY="323.0" mnemonicParsing="false" onAction="#onNewGameButton" prefHeight="28.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="NEW GAME">
+            <Button layoutX="130.0" layoutY="288.0" mnemonicParsing="false" onAction="#onNewGameButton" prefHeight="28.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="NEW GAME">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button layoutX="130.0" layoutY="386.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="RANKING">
+            <Button layoutX="130.0" layoutY="340.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="RANKING">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
@@ -40,6 +40,11 @@
                   <Font size="18.0" />
                </font>
             </TextField>
+            <Button layoutX="130.0" layoutY="393.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10;" text="LOAD SCRIPT">
+               <font>
+                  <Font name="Times New Roman" size="20.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>

@@ -7,6 +7,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -36,6 +39,7 @@ public class Controller implements Initializable {
     private boolean phoneCallUsed = false;
     private boolean votingUsed = false;
     private static final double PHONE_CALL_ACCURACY = 0.75;
+    private static final double VOTING_ACCURACY = 0.90;
 
     private String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
@@ -178,7 +182,7 @@ public class Controller implements Initializable {
     private Pane votePane = new Pane();
 
     @FXML
-    private XYChart<String, Integer> voteChart;
+    private BarChart<String, Number> voteChart;
 
     @FXML
     private void phoneLabelClick() {
@@ -200,20 +204,86 @@ public class Controller implements Initializable {
     }
 
     @FXML
+    private void closePhoneCall() {
+        phoneCallPane.setVisible(false);
+    }
+
+    private Label findCorrectAnswerLabel() {
+        if (correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
+            return answerLabelA;
+        } else if (correctAnswers.get(iterator-1).equals(answerLabelB.getText())) {
+            return answerLabelB;
+        } else if (correctAnswers.get(iterator-1).equals(answerLabelC.getText())) {
+            return answerLabelC;
+        } else  {
+            return answerLabelD;
+        }
+    }
+
+
+    @FXML
     private void votingLabelClick() {
         if(!votingUsed) {
             votingUsed = true;
             voteCross.setOpacity(1.0);
             votePane.setVisible(true);
 
-            XYChart.Series<String, Integer> votingSeries = new XYChart.Series<>();
-            votingSeries.getData().add(new XYChart.Data<>("A", 32));
-            votingSeries.getData().add(new XYChart.Data<>("B", 11));
-            votingSeries.getData().add(new XYChart.Data<>("C", 66));
-            votingSeries.getData().add(new XYChart.Data<>("D", 4));
-            voteChart.getData().addAll(votingSeries);
 
+            int AChartValue=0, BChartValue=0, CChartValue=0, DChartValue=0;
+
+            Random rand = new Random();
+            Set<Integer> randomSet = new LinkedHashSet<>();
+            while(randomSet.size()<4) {
+                randomSet.add(rand.nextInt(4));
+            }
+            if(rand.nextDouble() < VOTING_ACCURACY ) {   //case voting is accurate (good answer is dominating)
+                if (findCorrectAnswerLabel().getId().contains("A")) {   //good answer is dominating
+                    AChartValue = rand.nextInt(25) + 50;
+                } else if(findCorrectAnswerLabel().getId().contains("B")) {
+                    BChartValue = rand.nextInt(25) + 50;
+                } else if(findCorrectAnswerLabel().getId().contains("C")) {
+                    CChartValue = rand.nextInt(25) + 50;
+                } else {
+                    DChartValue = rand.nextInt(25) + 50;
+                }
+                for (int numb : randomSet) {
+                    if (numb == 0 && !answerLabelA.getText().equals(findCorrectAnswerLabel().getText())) {
+                        AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    } else if (numb == 1 && !answerLabelB.getText().equals(findCorrectAnswerLabel().getText())) {
+                        BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    } else if (numb == 2 && !answerLabelC.getText().equals(findCorrectAnswerLabel().getText())) {
+                        CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    } else if (numb == 3 && !answerLabelD.getText().equals(findCorrectAnswerLabel().getText())) {
+                        DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    }
+                }
+            } else {                                    //this part of the code is responsible for random chart (not exceeding 100%)
+                for (int numb : randomSet) {
+                    if (numb == 0) {
+                        AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    } else if (numb == 1) {
+                        BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    } else if (numb == 2) {
+                        CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    } else {
+                        DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                    }
+                }
+
+            }
+
+            XYChart.Series<String, Number> votingSeries = new XYChart.Series<>();
+            votingSeries.getData().add(new XYChart.Data<>("A", AChartValue));
+            votingSeries.getData().add(new XYChart.Data<>("B", BChartValue));
+            votingSeries.getData().add(new XYChart.Data<>("C", CChartValue));
+            votingSeries.getData().add(new XYChart.Data<>("D", DChartValue));
+            voteChart.getData().add(votingSeries);
         }
+    }
+
+    @FXML
+    private void closeVote() {
+        votePane.setVisible(false);
     }
 
     private void prepareNewQuizQuestion() {
