@@ -4,17 +4,15 @@ import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,12 +23,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class Controller implements Initializable {
+public class QuizController implements Initializable {
 
     private List<String> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
     private List<String> correctAnswers = new ArrayList<>();
     private int iterator = 0;
+    private int points = 0;
     private String selectedAnswer;
     private static final int MAX_POINTS = 15;
     private boolean confirmationInProgress = false;
@@ -41,27 +40,27 @@ public class Controller implements Initializable {
     private static final double PHONE_CALL_ACCURACY = 0.75;
     private static final double VOTING_ACCURACY = 0.90;
 
-    private String formatSelectedLabelString =
+    private final String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
             "-fx-background-radius: 10;" +
             "-fx-border-color:  linear-gradient(#bdbcbc,#676565);" +
             "-fx-border-radius: 10;" +
             "-fx-text-fill: black;";
 
-    private String formatToDefaultLabelString =
+    private final String formatToDefaultLabelString =
             "-fx-background-color:  linear-gradient(#001299, #4d61ff);" +
             "-fx-background-radius: 10;" +
             "-fx-border-color:  linear-gradient(#bdbcbc,#676565);" +
             "-fx-border-radius: 10;" +
             "-fx-text-fill: white;";
 
-    private String correctAnswerStyleSheet =
+    private final String correctAnswerStyleSheet =
             "-fx-background-color: #00b300;" +
             "-fx-border-color:  linear-gradient(#bdbcbc,#676565);" +
             "-fx-border-radius: 10;" +
             "-fx-background-radius: 10;";
 
-    private String prizeLabelStyleSheet =
+    private final String prizeLabelStyleSheet =
             "-fx-background-color: #f49e0a;" +
             "-fx-background-radius: 10;" +
             "-fx-border-color:  linear-gradient(#bdbcbc,#676565);" +
@@ -86,15 +85,6 @@ public class Controller implements Initializable {
         prepareNewQuizQuestion();
     }
 
-    @FXML
-    private void onNewGameButton(javafx.event.ActionEvent event) throws Exception {
-        Parent blah = FXMLLoader.load(getClass().getResource("quizWindow.fxml"));
-        Scene scene = new Scene(blah);
-        Stage appStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        appStage.setScene(scene);
-        appStage.show();
-    }
-
 
     @FXML
     private void onConfirmButtonClick() {
@@ -104,20 +94,37 @@ public class Controller implements Initializable {
                 PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
                 pt1.setOnFinished(e -> highlightCorrectAnswer());
                 pt1.playFromStart();
-                if (checkAnswer()) {
-                    System.out.println("congratulations!");
-                    PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
-                    pt2.setOnFinished(e -> {
-                        prepareNewQuizQuestion();
-                        confirmationInProgress = false;
-                        answerSelected = false;
-                    });
-                    pt2.playFromStart();
-                } else {
-                    System.out.println("game over");
-                }
+
+                PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
+                pt2.setOnFinished(e -> {
+                    if (checkAnswer()) {
+                            prepareNewQuizQuestion();
+                            confirmationInProgress = false;
+                            answerSelected = false;
+                            points++;
+                    } else {
+                        try {
+                            showEndGameStage();
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                });
+                pt2.playFromStart();
             }
         }
+    }
+
+    private void showEndGameStage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("EndGameStage.fxml"));
+        Parent root = loader.load();
+        Stage endGameStage = new Stage();
+        EndGameController endGameController = loader.getController();
+        endGameController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
+        endGameController.setScore(calculateScore());
+        endGameStage.initModality(Modality.APPLICATION_MODAL);
+        endGameStage.setScene(new Scene(root));
+        endGameStage.show();
     }
 
     private void setEverythingVisible() {
@@ -227,7 +234,6 @@ public class Controller implements Initializable {
             voteCross.setOpacity(1.0);
             votePane.setVisible(true);
 
-
             int AChartValue=0, BChartValue=0, CChartValue=0, DChartValue=0;
 
             Random rand = new Random();
@@ -283,6 +289,20 @@ public class Controller implements Initializable {
     @FXML
     private void closeVote() {
         votePane.setVisible(false);
+    }
+
+    private String calculateScore(){
+        String score = "";
+        if(points < 5) {
+            score = "0 $";
+        } else if(points < 10) {
+            score = "5.000 $";
+        } else if(points < 15) {
+            score = "50.000 $";
+        } else {
+            score = "1.000.000 $";
+        }
+        return score;
     }
 
     private void prepareNewQuizQuestion() {

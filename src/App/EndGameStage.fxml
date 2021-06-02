@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="216.0" prefWidth="372.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.EndGameController">
+   <children>
+      <Label disable="true" opacity="0.98" prefHeight="216.0" prefWidth="372.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff); -fx-border-color: linear-gradient(#bdbcbc,#676565);" />
+      <Label alignment="CENTER" layoutX="83.0" layoutY="10.0" prefHeight="42.0" prefWidth="188.0" text="Game over" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="30.0" />
+         </font>
+      </Label>
+      <TextField layoutX="44.0" layoutY="131.0" prefHeight="30.0" prefWidth="188.0" promptText="name" />
+      <Button fx:id="playAgainButton" layoutX="44.0" layoutY="176.0" mnemonicParsing="false" onMouseEntered="#playAgainButtonMouseEntered" onMouseExited="#playAgainButtonMouseExited" prefHeight="25.0" prefWidth="114.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Play again" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font></Button>
+      <Label layoutX="144.0" layoutY="59.0" text="You won:" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="scoreOfGameLabel" alignment="CENTER" layoutX="44.0" layoutY="78.0" prefHeight="40.0" prefWidth="267.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="33.0" />
+         </font>
+      </Label>
+      <Button fx:id="goToMainMenuButton" layoutX="202.0" layoutY="176.0" mnemonicParsing="false" onMouseEntered="#goToMainMenuButtonMouseEntered" onMouseExited="#goToMainMenuButtonMouseExited" prefHeight="30.0" prefWidth="127.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Go to main menu" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="submitScoreButton" layoutX="240.0" layoutY="131.0" mnemonicParsing="false" onMouseEntered="#submitScoreButtonMouseEntered" onMouseExited="#submitScoreButtonMouseExited" prefHeight="0.0" prefWidth="89.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Submit" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
