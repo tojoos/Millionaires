@@ -8,10 +8,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.InnerShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Ellipse;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -74,7 +80,13 @@ public class QuizController implements Initializable {
     private Label AwordLabel = new Label(), BwordLabel = new Label(), CwordLabel = new Label(), DwordLabel = new Label();
 
     @FXML
+    private Ellipse fiftyFiftyLabel, phoneLabel, votingLabel;
+    
+    @FXML
     private VBox prizeListVBox;
+
+    @FXML
+    private Button confirmButton;
 
     @FXML
     private ImageView fiftyFiftyCross, phoneCross, voteCross;
@@ -84,7 +96,6 @@ public class QuizController implements Initializable {
         prepareQuestions();
         prepareNewQuizQuestion();
     }
-
 
     @FXML
     private void onConfirmButtonClick() {
@@ -123,6 +134,8 @@ public class QuizController implements Initializable {
         endGameController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
         endGameController.setScore(calculateScore());
         endGameStage.initModality(Modality.APPLICATION_MODAL);
+        endGameStage.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
+        endGameStage.setTitle("Game over");
         endGameStage.setScene(new Scene(root));
         endGameStage.show();
     }
@@ -262,7 +275,7 @@ public class QuizController implements Initializable {
                         DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
                     }
                 }
-            } else {                                    //this part of the code is responsible for random chart (not exceeding 100%)
+            } else {      //this part of the code is responsible for random chart (not exceeding 100%)
                 for (int numb : randomSet) {
                     if (numb == 0) {
                         AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
@@ -274,7 +287,6 @@ public class QuizController implements Initializable {
                         DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
                     }
                 }
-
             }
 
             XYChart.Series<String, Number> votingSeries = new XYChart.Series<>();
@@ -292,7 +304,7 @@ public class QuizController implements Initializable {
     }
 
     private String calculateScore(){
-        String score = "";
+        String score;
         if(points < 5) {
             score = "0 $";
         } else if(points < 10) {
@@ -423,7 +435,7 @@ public class QuizController implements Initializable {
 
     private void prepareQuestions() {
         try {
-            File script = new File("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\script.txt");
+            File script = new File("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\scripts\\script.txt");
             if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));
                 int iterator = 0;
@@ -444,4 +456,89 @@ public class QuizController implements Initializable {
             ex.printStackTrace();
         }
     }
+
+    /* --- cosmetic --- */
+
+    private final InnerShadow innerShadowButton = new InnerShadow((BlurType.THREE_PASS_BOX), Color.web("ffa700"),15,0,0,0);
+
+    @FXML
+    private void ALabelMouseExited() {
+        answerLabelA.setEffect(null);
+    }
+
+    @FXML
+    private void ALabelMouseEntered() {
+        answerLabelA.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void CLabelMouseExited() {
+        answerLabelC.setEffect(null);
+    }
+
+    @FXML
+    private void CLabelMouseEntered() {
+        answerLabelC.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void BLabelMouseExited() {
+        answerLabelB.setEffect(null);
+    }
+
+    @FXML
+    private void BLabelMouseEntered() {
+        answerLabelB.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void DLabelMouseExited() {
+        answerLabelD.setEffect(null);
+    }
+
+    @FXML
+    private void DLabelMouseEntered() {
+        answerLabelD.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void confirmButtonMouseExited() {
+        confirmButton.setEffect(null);
+    }
+
+    @FXML
+    private void confirmButtonMouseEntered() {
+        confirmButton.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void fiftyFiftyLabelMouseExited() {
+        fiftyFiftyLabel.setEffect(null);
+    }
+
+    @FXML
+    private void fiftyFiftyLabelMouseEntered() {
+        fiftyFiftyLabel.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void phoneLabelMouseExited() {
+        phoneLabel.setEffect(null);
+    }
+
+    @FXML
+    private void phoneLabelMouseEntered() {
+        phoneLabel.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void votingLabelMouseExited() {
+        votingLabel.setEffect(null);
+    }
+
+    @FXML
+    private void votingLabelMouseEntered() {
+        votingLabel.setEffect(innerShadowButton);
+    }
+
 }
