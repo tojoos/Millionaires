@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class StartMenuController {
 
     @FXML
-    Button newGameButton, rankingButton, loadScriptButton, helpButton;
+    Button newGameButton, rankingButton, loadScriptButton, helpButton, exitButton;
 
     @FXML
     private void onNewGameButton() throws Exception {
@@ -64,6 +64,16 @@ public class StartMenuController {
     @FXML
     private void onNewGameButtonMouseExited() {
         newGameButton.setEffect(null);
+    }
+
+    @FXML
+    private void onExitButtonMouseEntered() {
+        exitButton.setEffect(innerShadowButton);
+    }
+
+    @FXML
+    private void onExitButtonMouseExited() {
+        exitButton.setEffect(null);
     }
 
 }
