@@ -81,6 +81,7 @@ public class QuizController implements Initializable {
 
     @FXML
     private Ellipse fiftyFiftyLabel, phoneLabel, votingLabel;
+    
     @FXML
     private VBox prizeListVBox;
 
