@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -44,6 +46,16 @@
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
+            <ImageView fx:id="volumeIconOn" fitHeight="24.0" fitWidth="31.0" layoutX="1235.0" layoutY="14.0" onMouseClicked="#volumeIconOnClicked" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/volume_icon_on.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="volumeIconOff" fitHeight="24.0" fitWidth="31.0" layoutX="1235.0" layoutY="14.0" onMouseClicked="#volumeIconOffClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+               <image>
+                  <Image url="@images/volume_icon_off.png" />
+               </image>
+            </ImageView>
          </children>
       </AnchorPane>
    </center>

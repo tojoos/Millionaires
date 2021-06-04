@@ -2,18 +2,59 @@ package App;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.InnerShadow;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class StartMenuController {
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class StartMenuController implements Initializable {
+
+    private SoundEffectsClass soundEffectsClass;
 
     @FXML
     Button newGameButton, rankingButton, loadScriptButton, helpButton, exitButton;
+
+    @FXML
+    ImageView volumeIconOn, volumeIconOff;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        soundEffectsClass = new SoundEffectsClass();
+        try {
+            soundEffectsClass.playIntroMusic();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void volumeIconOffClicked() {
+        soundEffectsClass.unmuteMediaPlayer();
+        volumeIconOff.disableProperty().setValue(true);
+        volumeIconOff.visibleProperty().setValue(false);
+
+        volumeIconOn.disableProperty().setValue(false);
+        volumeIconOn.visibleProperty().setValue(true);
+    }
+
+    @FXML
+    private void volumeIconOnClicked() {
+        soundEffectsClass.muteMediaPlayer();
+        volumeIconOn.disableProperty().setValue(true);
+        volumeIconOn.visibleProperty().setValue(false);
+
+        volumeIconOff.disableProperty().setValue(false);
+        volumeIconOff.visibleProperty().setValue(true);
+    }
 
     @FXML
     private void onNewGameButton() throws Exception {
@@ -22,7 +63,10 @@ public class StartMenuController {
         Stage quizStage = (Stage) newGameButton.getScene().getWindow();
         quizStage.setScene(new Scene(root));
         quizStage.show();
+        soundEffectsClass.stopMediaPlayer();
     }
+
+    /* --- cosmetic --- */
 
     private final InnerShadow innerShadowButton = new InnerShadow((BlurType.THREE_PASS_BOX), Color.web("ffa700"),15,0,0,0);
 
@@ -75,5 +119,4 @@ public class StartMenuController {
     private void onExitButtonMouseExited() {
         exitButton.setEffect(null);
     }
-
 }
