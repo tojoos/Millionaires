@@ -9,9 +9,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.QuizController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.QuizController">
     <children>
-        <VBox fx:id="prizeListVBox" alignment="CENTER" prefHeight="720.0" prefWidth="160.0" style="-fx-background-color: linear-gradient(#001299, #4d61ff);" AnchorPane.leftAnchor="0.0">
+        <VBox fx:id="prizeListVBox" alignment="CENTER" prefHeight="720.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="140.0" text="1 000 000 $" textAlignment="CENTER" textFill="WHITE" VBox.vgrow="ALWAYS">
                     <font>
@@ -327,5 +327,15 @@
                 </Label>
             </children>
         </Pane>
+      <ImageView fx:id="volumeIconOff" fitHeight="24.0" fitWidth="31.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#volumeIconOffClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/volume_icon_off.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="volumeIconOn" fitHeight="24.0" fitWidth="31.0" layoutX="14.0" layoutY="12.0" onMouseClicked="#volumeIconOnClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/volume_icon_on.png" />
+         </image>
+      </ImageView>
     </children>
 </AnchorPane>

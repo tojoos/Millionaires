@@ -26,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
@@ -45,6 +46,7 @@ public class QuizController implements Initializable {
     private boolean votingUsed = false;
     private static final double PHONE_CALL_ACCURACY = 0.75;
     private static final double VOTING_ACCURACY = 0.90;
+    private SoundEffectsClass soundEffectsClass;
 
     private final String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
@@ -89,39 +91,121 @@ public class QuizController implements Initializable {
     private Button confirmButton;
 
     @FXML
-    private ImageView fiftyFiftyCross, phoneCross, voteCross;
+    private ImageView fiftyFiftyCross, phoneCross, voteCross, volumeIconOn, volumeIconOff;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         prepareQuestions();
         prepareNewQuizQuestion();
+
+        soundEffectsClass = new SoundEffectsClass();
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
+        pauseTransition.playFromStart();
+        try {
+            soundEffectsClass.playQuestionIntroSound();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        pauseTransition.setOnFinished(e -> {
+            if(!confirmationInProgress) {
+                try {
+                    soundEffectsClass.playQuizMusic(iterator);
+                } catch (URISyntaxException uriSyntaxException) {
+                    uriSyntaxException.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
-    private void onConfirmButtonClick() {
+    private void volumeIconOffClicked() {
+        soundEffectsClass.unmuteMediaPlayer();
+        volumeIconOff.disableProperty().setValue(true);
+        volumeIconOff.visibleProperty().setValue(false);
+
+        volumeIconOn.disableProperty().setValue(false);
+        volumeIconOn.visibleProperty().setValue(true);
+    }
+
+    @FXML
+    private void volumeIconOnClicked() {
+        soundEffectsClass.muteMediaPlayer();
+        volumeIconOn.disableProperty().setValue(true);
+        volumeIconOn.visibleProperty().setValue(false);
+
+        volumeIconOff.disableProperty().setValue(false);
+        volumeIconOff.visibleProperty().setValue(true);
+    }
+
+    @FXML
+    private void onConfirmButtonClick() throws URISyntaxException {
         if(answerSelected) {
             if (!confirmationInProgress) {
                 confirmationInProgress = true;
-                PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
-                pt1.setOnFinished(e -> highlightCorrectAnswer());
+
+                soundEffectsClass.stopMediaPlayer();
+
+                PauseTransition pt1 = new PauseTransition(Duration.seconds(4));
+                soundEffectsClass.playAnswerSound();
                 pt1.playFromStart();
 
-                PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
-                pt2.setOnFinished(e -> {
+                pt1.setOnFinished(e -> {
+                    soundEffectsClass.stopMediaPlayer();
+                    highlightCorrectAnswer();
                     if (checkAnswer()) {
+                        PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
+                        try {
+                            soundEffectsClass.playCorrectAnswerSound();
+                        } catch (URISyntaxException uriSyntaxException) {
+                            uriSyntaxException.printStackTrace();
+                        }
+                        pt3.setOnFinished(ev1 -> {
+                            soundEffectsClass.stopMediaPlayer();
+
+                            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
+                            pauseTransition.playFromStart();
+                            try {
+                                soundEffectsClass.playQuestionIntroSound();
+                            } catch (URISyntaxException uriSyntaxException) {
+                                uriSyntaxException.printStackTrace();
+                            }
+
                             prepareNewQuizQuestion();
                             confirmationInProgress = false;
                             answerSelected = false;
                             points++;
+
+                            pauseTransition.setOnFinished(ev2 -> {
+                                if(!confirmationInProgress) {
+                                    try {
+                                        soundEffectsClass.playQuizMusic(iterator);
+                                    } catch (URISyntaxException uriSyntaxException) {
+                                        uriSyntaxException.printStackTrace();
+                                    }
+                                }
+                            });
+                        });
+                        pt3.playFromStart();
                     } else {
+                            PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
                         try {
-                            showEndGameStage();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
+                            soundEffectsClass.playWrongAnswerSound();
+                        } catch (URISyntaxException uriSyntaxException) {
+                            uriSyntaxException.printStackTrace();
                         }
+                        pt3.setOnFinished(ev1 -> {
+                                soundEffectsClass.stopMediaPlayer();
+
+                                try {
+                                    showEndGameStage();
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            });
+                            pt3.playFromStart();
+
                     }
                 });
-                pt2.playFromStart();
             }
         }
     }
@@ -155,37 +239,42 @@ public class QuizController implements Initializable {
     }
 
     @FXML
-    private void fiftyFiftyLabelClick() {
-        if(!fiftyFiftyUsed) {
-            fiftyFiftyUsed = true;
-            fiftyFiftyCross.setOpacity(1.0);
-            Random rand = new Random();
-            Set<Integer> twoRandomWrongAnswers = new LinkedHashSet<>();
-            while(twoRandomWrongAnswers.size() < 2) {
-                int randomNumber = rand.nextInt(4);
-                if(randomNumber == 0) {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelA.setVisible(false);
-                        AwordLabel.setVisible(false);
-                    }
-                } else if(randomNumber == 1) {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelB.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelB.setVisible(false);
-                        BwordLabel.setVisible(false);
-                    }
-                }else if(randomNumber == 2) {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelC.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelC.setVisible(false);
-                        CwordLabel.setVisible(false);
-                    }
-                } else {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelD.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelD.setVisible(false);
-                        DwordLabel.setVisible(false);
+    private void fiftyFiftyLabelClick() throws URISyntaxException {
+        if(!confirmationInProgress) {
+            if (!fiftyFiftyUsed) {
+                SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
+                soundEffectsClass.lifebouySound();
+
+                fiftyFiftyUsed = true;
+                fiftyFiftyCross.setOpacity(1.0);
+                Random rand = new Random();
+                Set<Integer> twoRandomWrongAnswers = new LinkedHashSet<>();
+                while (twoRandomWrongAnswers.size() < 2) {
+                    int randomNumber = rand.nextInt(4);
+                    if (randomNumber == 0) {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelA.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelA.setVisible(false);
+                            AwordLabel.setVisible(false);
+                        }
+                    } else if (randomNumber == 1) {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelB.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelB.setVisible(false);
+                            BwordLabel.setVisible(false);
+                        }
+                    } else if (randomNumber == 2) {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelC.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelC.setVisible(false);
+                            CwordLabel.setVisible(false);
+                        }
+                    } else {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelD.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelD.setVisible(false);
+                            DwordLabel.setVisible(false);
+                        }
                     }
                 }
             }
@@ -205,27 +294,100 @@ public class QuizController implements Initializable {
     private BarChart<String, Number> voteChart;
 
     @FXML
-    private void phoneLabelClick() {
-        if(!phoneCallUsed) {
-            phoneCallUsed = true;
-            phoneCross.setOpacity(1.0);
-            phoneCallPane.setVisible(true);
-            String callAnswer = "I think it will be answer: ";
-            Random rand = new Random();
-            if(rand.nextDouble() < PHONE_CALL_ACCURACY) { //case where phone call is accurate
-                callAnswer += correctAnswers.get(iterator-1);
-            } else {                       //case when it's not accurate answer (random answer)
-                callAnswer += answers.get(4*(iterator-1) + (rand.nextInt(4)));
+    private void phoneLabelClick() throws URISyntaxException {
+        if (!confirmationInProgress) {
+            if (!phoneCallUsed) {
+                SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
+                soundEffectsClass.lifebouySound();
+
+                phoneCallUsed = true;
+                phoneCross.setOpacity(1.0);
+                phoneCallPane.setVisible(true);
+                String callAnswer = "I think it will be answer: ";
+                Random rand = new Random();
+                if (rand.nextDouble() < PHONE_CALL_ACCURACY) { //case where phone call is accurate
+                    callAnswer += correctAnswers.get(iterator - 1);
+                } else {                       //case when it's not accurate answer (random answer)
+                    callAnswer += answers.get(4 * (iterator - 1) + (rand.nextInt(4)));
+                }
+                callAnswer += ", but i am not entirely sure.";
+                if (phoneCallLabel != null)
+                    phoneCallLabel.setText(callAnswer);
             }
-            callAnswer += ", but i am not entirely sure.";
-            if(phoneCallLabel!=null)
-                phoneCallLabel.setText(callAnswer);
         }
     }
 
     @FXML
     private void closePhoneCall() {
         phoneCallPane.setVisible(false);
+    }
+
+    @FXML
+    private void votingLabelClick() throws URISyntaxException {
+        if (!confirmationInProgress) {
+            if (!votingUsed) {
+                SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
+                soundEffectsClass.lifebouySound();
+
+                votingUsed = true;
+                voteCross.setOpacity(1.0);
+                votePane.setVisible(true);
+
+                int AChartValue = 0, BChartValue = 0, CChartValue = 0, DChartValue = 0;
+
+                Random rand = new Random();
+                Set<Integer> randomSet = new LinkedHashSet<>();
+                while (randomSet.size() < 4) {
+                    randomSet.add(rand.nextInt(4));
+                }
+                if (rand.nextDouble() < VOTING_ACCURACY) {   //case voting is accurate (good answer is dominating)
+                    if (findCorrectAnswerLabel().getId().contains("A")) {   //good answer is dominating
+                        AChartValue = rand.nextInt(25) + 50;
+                    } else if (findCorrectAnswerLabel().getId().contains("B")) {
+                        BChartValue = rand.nextInt(25) + 50;
+                    } else if (findCorrectAnswerLabel().getId().contains("C")) {
+                        CChartValue = rand.nextInt(25) + 50;
+                    } else {
+                        DChartValue = rand.nextInt(25) + 50;
+                    }
+                    for (int numb : randomSet) {
+                        if (numb == 0 && !answerLabelA.getText().equals(findCorrectAnswerLabel().getText())) {
+                            AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 1 && !answerLabelB.getText().equals(findCorrectAnswerLabel().getText())) {
+                            BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 2 && !answerLabelC.getText().equals(findCorrectAnswerLabel().getText())) {
+                            CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 3 && !answerLabelD.getText().equals(findCorrectAnswerLabel().getText())) {
+                            DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        }
+                    }
+                } else {      //this part of the code is responsible for random chart (not exceeding 100%)
+                    for (int numb : randomSet) {
+                        if (numb == 0) {
+                            AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 1) {
+                            BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 2) {
+                            CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else {
+                            DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        }
+                    }
+                }
+
+                XYChart.Series<String, Number> votingSeries = new XYChart.Series<>();
+                votingSeries.getData().add(new XYChart.Data<>("A", AChartValue));
+                votingSeries.getData().add(new XYChart.Data<>("B", BChartValue));
+                votingSeries.getData().add(new XYChart.Data<>("C", CChartValue));
+                votingSeries.getData().add(new XYChart.Data<>("D", DChartValue));
+                voteChart.getData().add(votingSeries);
+            }
+        }
+    }
+
+    @FXML
+    private void closeVote() {
+        votePane.setVisible(false);
     }
 
     private Label findCorrectAnswerLabel() {
@@ -240,70 +402,7 @@ public class QuizController implements Initializable {
         }
     }
 
-    @FXML
-    private void votingLabelClick() {
-        if(!votingUsed) {
-            votingUsed = true;
-            voteCross.setOpacity(1.0);
-            votePane.setVisible(true);
-
-            int AChartValue=0, BChartValue=0, CChartValue=0, DChartValue=0;
-
-            Random rand = new Random();
-            Set<Integer> randomSet = new LinkedHashSet<>();
-            while(randomSet.size()<4) {
-                randomSet.add(rand.nextInt(4));
-            }
-            if(rand.nextDouble() < VOTING_ACCURACY ) {   //case voting is accurate (good answer is dominating)
-                if (findCorrectAnswerLabel().getId().contains("A")) {   //good answer is dominating
-                    AChartValue = rand.nextInt(25) + 50;
-                } else if(findCorrectAnswerLabel().getId().contains("B")) {
-                    BChartValue = rand.nextInt(25) + 50;
-                } else if(findCorrectAnswerLabel().getId().contains("C")) {
-                    CChartValue = rand.nextInt(25) + 50;
-                } else {
-                    DChartValue = rand.nextInt(25) + 50;
-                }
-                for (int numb : randomSet) {
-                    if (numb == 0 && !answerLabelA.getText().equals(findCorrectAnswerLabel().getText())) {
-                        AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 1 && !answerLabelB.getText().equals(findCorrectAnswerLabel().getText())) {
-                        BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 2 && !answerLabelC.getText().equals(findCorrectAnswerLabel().getText())) {
-                        CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 3 && !answerLabelD.getText().equals(findCorrectAnswerLabel().getText())) {
-                        DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    }
-                }
-            } else {      //this part of the code is responsible for random chart (not exceeding 100%)
-                for (int numb : randomSet) {
-                    if (numb == 0) {
-                        AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 1) {
-                        BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 2) {
-                        CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else {
-                        DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    }
-                }
-            }
-
-            XYChart.Series<String, Number> votingSeries = new XYChart.Series<>();
-            votingSeries.getData().add(new XYChart.Data<>("A", AChartValue));
-            votingSeries.getData().add(new XYChart.Data<>("B", BChartValue));
-            votingSeries.getData().add(new XYChart.Data<>("C", CChartValue));
-            votingSeries.getData().add(new XYChart.Data<>("D", DChartValue));
-            voteChart.getData().add(votingSeries);
-        }
-    }
-
-    @FXML
-    private void closeVote() {
-        votePane.setVisible(false);
-    }
-
-    private String calculateScore(){
+    private String calculateScore() {
         String score;
         if(points < 5) {
             score = "0 $";
@@ -385,6 +484,34 @@ public class QuizController implements Initializable {
         DwordLabel.setStyle("-fx-text-fill: #f49e0a;");
     }
 
+    private boolean checkAnswer() {
+        return selectedAnswer.equals(correctAnswers.get(iterator-1));
+    }
+
+    private void prepareQuestions() {
+        try {
+            File script = new File(Main.class.getResource("\\scripts\\script.txt").toURI());
+            if(script.canRead()) {
+                BufferedReader br = new BufferedReader(new FileReader(script));
+                int iterator = 0;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (iterator % 5 == 0)
+                        questions.add(line);
+                    else if (iterator % 5 >= 1) {
+                        if (iterator % 5 == 1)
+                            correctAnswers.add(line);
+                        answers.add(line);
+                    }
+                    iterator++;
+                }
+                br.close();
+            }
+        } catch (IOException | URISyntaxException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @FXML
     private void answerChoiceLabelA() {
         if(!confirmationInProgress) {
@@ -426,34 +553,6 @@ public class QuizController implements Initializable {
             answerLabelD.setStyle(formatSelectedLabelString);
             DwordLabel.setStyle("-fx-text-fill: white;");
             selectedAnswer = answerLabelD.getText();
-        }
-    }
-
-    private boolean checkAnswer() {
-        return selectedAnswer.equals(correctAnswers.get(iterator-1));
-    }
-
-    private void prepareQuestions() {
-        try {
-            File script = new File("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\scripts\\script.txt");
-            if(script.canRead()) {
-                BufferedReader br = new BufferedReader(new FileReader(script));
-                int iterator = 0;
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (iterator % 5 == 0)
-                        questions.add(line);
-                    else if (iterator % 5 >= 1) {
-                        if (iterator % 5 == 1)
-                            correctAnswers.add(line);
-                        answers.add(line);
-                    }
-                    iterator++;
-                }
-                br.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -540,5 +639,4 @@ public class QuizController implements Initializable {
     private void votingLabelMouseEntered() {
         votingLabel.setEffect(innerShadowButton);
     }
-
 }
