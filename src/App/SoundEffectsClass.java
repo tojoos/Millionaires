@@ -74,6 +74,15 @@ public class SoundEffectsClass {
                 muteMediaPlayer();
     }
 
+    public void lifebouySound() {
+        mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\lifebouy sound.mp3").toUri().toString()));
+        mediaPlayer.setOnReady(() -> mediaPlayer.play());
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
+
+        if(isMuted)
+            muteMediaPlayer();
+    }
+
     public void stopMediaPlayer() {
         mediaPlayer.stop();
     }

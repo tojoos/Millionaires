@@ -151,19 +151,18 @@ public class QuizController implements Initializable {
                             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
                             pauseTransition.playFromStart();
                             soundEffectsClass.playQuestionIntroSound();
-                            pauseTransition.setOnFinished(ev2 -> {
-                                if(!confirmationInProgress)
-                                    soundEffectsClass.playQuizMusic(iterator);
-                            });
 
                             prepareNewQuizQuestion();
                             confirmationInProgress = false;
                             answerSelected = false;
                             points++;
 
+                            pauseTransition.setOnFinished(ev2 -> {
+                                if(!confirmationInProgress)
+                                    soundEffectsClass.playQuizMusic(iterator);
+                            });
                         });
                         pt3.playFromStart();
-
                     } else {
                             PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
                             soundEffectsClass.playWrongAnswerSound();
@@ -214,36 +213,41 @@ public class QuizController implements Initializable {
 
     @FXML
     private void fiftyFiftyLabelClick() {
-        if(!fiftyFiftyUsed) {
-            fiftyFiftyUsed = true;
-            fiftyFiftyCross.setOpacity(1.0);
-            Random rand = new Random();
-            Set<Integer> twoRandomWrongAnswers = new LinkedHashSet<>();
-            while(twoRandomWrongAnswers.size() < 2) {
-                int randomNumber = rand.nextInt(4);
-                if(randomNumber == 0) {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelA.setVisible(false);
-                        AwordLabel.setVisible(false);
-                    }
-                } else if(randomNumber == 1) {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelB.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelB.setVisible(false);
-                        BwordLabel.setVisible(false);
-                    }
-                }else if(randomNumber == 2) {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelC.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelC.setVisible(false);
-                        CwordLabel.setVisible(false);
-                    }
-                } else {
-                    if (!correctAnswers.get(iterator-1).equals(answerLabelD.getText())) {
-                        twoRandomWrongAnswers.add(randomNumber);
-                        answerLabelD.setVisible(false);
-                        DwordLabel.setVisible(false);
+        if(!confirmationInProgress) {
+            if (!fiftyFiftyUsed) {
+                SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
+                soundEffectsClass.lifebouySound();
+                
+                fiftyFiftyUsed = true;
+                fiftyFiftyCross.setOpacity(1.0);
+                Random rand = new Random();
+                Set<Integer> twoRandomWrongAnswers = new LinkedHashSet<>();
+                while (twoRandomWrongAnswers.size() < 2) {
+                    int randomNumber = rand.nextInt(4);
+                    if (randomNumber == 0) {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelA.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelA.setVisible(false);
+                            AwordLabel.setVisible(false);
+                        }
+                    } else if (randomNumber == 1) {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelB.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelB.setVisible(false);
+                            BwordLabel.setVisible(false);
+                        }
+                    } else if (randomNumber == 2) {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelC.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelC.setVisible(false);
+                            CwordLabel.setVisible(false);
+                        }
+                    } else {
+                        if (!correctAnswers.get(iterator - 1).equals(answerLabelD.getText())) {
+                            twoRandomWrongAnswers.add(randomNumber);
+                            answerLabelD.setVisible(false);
+                            DwordLabel.setVisible(false);
+                        }
                     }
                 }
             }
@@ -264,20 +268,25 @@ public class QuizController implements Initializable {
 
     @FXML
     private void phoneLabelClick() {
-        if(!phoneCallUsed) {
-            phoneCallUsed = true;
-            phoneCross.setOpacity(1.0);
-            phoneCallPane.setVisible(true);
-            String callAnswer = "I think it will be answer: ";
-            Random rand = new Random();
-            if(rand.nextDouble() < PHONE_CALL_ACCURACY) { //case where phone call is accurate
-                callAnswer += correctAnswers.get(iterator-1);
-            } else {                       //case when it's not accurate answer (random answer)
-                callAnswer += answers.get(4*(iterator-1) + (rand.nextInt(4)));
+        if (!confirmationInProgress) {
+            if (!phoneCallUsed) {
+                SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
+                soundEffectsClass.lifebouySound();
+
+                phoneCallUsed = true;
+                phoneCross.setOpacity(1.0);
+                phoneCallPane.setVisible(true);
+                String callAnswer = "I think it will be answer: ";
+                Random rand = new Random();
+                if (rand.nextDouble() < PHONE_CALL_ACCURACY) { //case where phone call is accurate
+                    callAnswer += correctAnswers.get(iterator - 1);
+                } else {                       //case when it's not accurate answer (random answer)
+                    callAnswer += answers.get(4 * (iterator - 1) + (rand.nextInt(4)));
+                }
+                callAnswer += ", but i am not entirely sure.";
+                if (phoneCallLabel != null)
+                    phoneCallLabel.setText(callAnswer);
             }
-            callAnswer += ", but i am not entirely sure.";
-            if(phoneCallLabel!=null)
-                phoneCallLabel.setText(callAnswer);
         }
     }
 
@@ -288,59 +297,64 @@ public class QuizController implements Initializable {
 
     @FXML
     private void votingLabelClick() {
-        if(!votingUsed) {
-            votingUsed = true;
-            voteCross.setOpacity(1.0);
-            votePane.setVisible(true);
+        if (!confirmationInProgress) {
+            if (!votingUsed) {
+                SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
+                soundEffectsClass.lifebouySound();
 
-            int AChartValue=0, BChartValue=0, CChartValue=0, DChartValue=0;
+                votingUsed = true;
+                voteCross.setOpacity(1.0);
+                votePane.setVisible(true);
 
-            Random rand = new Random();
-            Set<Integer> randomSet = new LinkedHashSet<>();
-            while(randomSet.size()<4) {
-                randomSet.add(rand.nextInt(4));
-            }
-            if(rand.nextDouble() < VOTING_ACCURACY ) {   //case voting is accurate (good answer is dominating)
-                if (findCorrectAnswerLabel().getId().contains("A")) {   //good answer is dominating
-                    AChartValue = rand.nextInt(25) + 50;
-                } else if(findCorrectAnswerLabel().getId().contains("B")) {
-                    BChartValue = rand.nextInt(25) + 50;
-                } else if(findCorrectAnswerLabel().getId().contains("C")) {
-                    CChartValue = rand.nextInt(25) + 50;
-                } else {
-                    DChartValue = rand.nextInt(25) + 50;
+                int AChartValue = 0, BChartValue = 0, CChartValue = 0, DChartValue = 0;
+
+                Random rand = new Random();
+                Set<Integer> randomSet = new LinkedHashSet<>();
+                while (randomSet.size() < 4) {
+                    randomSet.add(rand.nextInt(4));
                 }
-                for (int numb : randomSet) {
-                    if (numb == 0 && !answerLabelA.getText().equals(findCorrectAnswerLabel().getText())) {
-                        AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 1 && !answerLabelB.getText().equals(findCorrectAnswerLabel().getText())) {
-                        BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 2 && !answerLabelC.getText().equals(findCorrectAnswerLabel().getText())) {
-                        CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 3 && !answerLabelD.getText().equals(findCorrectAnswerLabel().getText())) {
-                        DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    }
-                }
-            } else {      //this part of the code is responsible for random chart (not exceeding 100%)
-                for (int numb : randomSet) {
-                    if (numb == 0) {
-                        AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 1) {
-                        BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
-                    } else if (numb == 2) {
-                        CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                if (rand.nextDouble() < VOTING_ACCURACY) {   //case voting is accurate (good answer is dominating)
+                    if (findCorrectAnswerLabel().getId().contains("A")) {   //good answer is dominating
+                        AChartValue = rand.nextInt(25) + 50;
+                    } else if (findCorrectAnswerLabel().getId().contains("B")) {
+                        BChartValue = rand.nextInt(25) + 50;
+                    } else if (findCorrectAnswerLabel().getId().contains("C")) {
+                        CChartValue = rand.nextInt(25) + 50;
                     } else {
-                        DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        DChartValue = rand.nextInt(25) + 50;
+                    }
+                    for (int numb : randomSet) {
+                        if (numb == 0 && !answerLabelA.getText().equals(findCorrectAnswerLabel().getText())) {
+                            AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 1 && !answerLabelB.getText().equals(findCorrectAnswerLabel().getText())) {
+                            BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 2 && !answerLabelC.getText().equals(findCorrectAnswerLabel().getText())) {
+                            CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 3 && !answerLabelD.getText().equals(findCorrectAnswerLabel().getText())) {
+                            DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        }
+                    }
+                } else {      //this part of the code is responsible for random chart (not exceeding 100%)
+                    for (int numb : randomSet) {
+                        if (numb == 0) {
+                            AChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 1) {
+                            BChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else if (numb == 2) {
+                            CChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        } else {
+                            DChartValue = rand.nextInt(100 - AChartValue - BChartValue - CChartValue - DChartValue);
+                        }
                     }
                 }
-            }
 
-            XYChart.Series<String, Number> votingSeries = new XYChart.Series<>();
-            votingSeries.getData().add(new XYChart.Data<>("A", AChartValue));
-            votingSeries.getData().add(new XYChart.Data<>("B", BChartValue));
-            votingSeries.getData().add(new XYChart.Data<>("C", CChartValue));
-            votingSeries.getData().add(new XYChart.Data<>("D", DChartValue));
-            voteChart.getData().add(votingSeries);
+                XYChart.Series<String, Number> votingSeries = new XYChart.Series<>();
+                votingSeries.getData().add(new XYChart.Data<>("A", AChartValue));
+                votingSeries.getData().add(new XYChart.Data<>("B", BChartValue));
+                votingSeries.getData().add(new XYChart.Data<>("C", CChartValue));
+                votingSeries.getData().add(new XYChart.Data<>("D", DChartValue));
+                voteChart.getData().add(votingSeries);
+            }
         }
     }
 
