@@ -20,7 +20,7 @@ public class EndGameController {
     private Label scoreOfGameLabel;
 
     public void setScore(String score) {
-        if(scoreOfGameLabel!=null) {
+        if(scoreOfGameLabel != null) {
             scoreOfGameLabel.setText(score);
         }
     }
@@ -34,7 +34,7 @@ public class EndGameController {
         scoreOfGameLabel.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("QuizStage.fxml"));
         Parent root = loader.load();
-        if(quizStage!=null) {
+        if(quizStage != null) {
             quizStage.setScene(new Scene(root));
             quizStage.show();
         }
@@ -45,7 +45,7 @@ public class EndGameController {
         scoreOfGameLabel.getScene().getWindow().hide();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("StartMenuStage.fxml"));
         Parent root = loader.load();
-        if(quizStage!=null) {
+        if(quizStage != null) {
             quizStage.setScene(new Scene(root));
             quizStage.show();
         }

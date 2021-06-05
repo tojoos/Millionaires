@@ -3,32 +3,31 @@ package App;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import java.net.MalformedURLException;
-import java.nio.file.Paths;
+import java.net.URISyntaxException;
 
 public class SoundEffectsClass {
     private MediaPlayer mediaPlayer;
     private boolean isMuted = false;
 
-    public void playIntroMusic() throws MalformedURLException {
-        mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\main theme.mp3").toUri().toString()));
+    public void playIntroMusic() throws URISyntaxException {
+        mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\main theme.mp3").toURI().toString()));
         mediaPlayer.setOnReady(() -> mediaPlayer.play());
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
     }
 
-    public void playQuizMusic(int questionNumber) {
+    public void playQuizMusic(int questionNumber) throws URISyntaxException {
             if (questionNumber <= 5) {
-                mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\500_5000_music.mp3").toUri().toString()));
+                mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\500_5000_music.mp3").toURI().toString()));
             } else if (questionNumber <= 10) {
-                mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\7500_50000_music.mp3").toUri().toString()));
+                mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\7500_50000_music.mp3").toURI().toString()));
             } else if (questionNumber <= 11) {
-                mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\75000_music.mp3").toUri().toString()));
+                mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\75000_music.mp3").toURI().toString()));
             } else if (questionNumber <= 13) {
-                mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\150000_250000_music.mp3").toUri().toString()));
+                mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\150000_250000_music.mp3").toURI().toString()));
             } else if (questionNumber <= 14) {
-                mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\500000_music.mp3").toUri().toString()));
+                mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\500000_music.mp3").toURI().toString()));
             } else {
-                mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\1000000_music.mp3").toUri().toString()));
+                mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\1000000_music.mp3").toURI().toString()));
             }
 
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
@@ -38,8 +37,8 @@ public class SoundEffectsClass {
                 muteMediaPlayer();
     }
 
-    public void playQuestionIntroSound() {
-            mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\lets play.mp3").toUri().toString()));
+    public void playQuestionIntroSound() throws URISyntaxException {
+            mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\lets play.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
             mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
 
@@ -47,8 +46,8 @@ public class SoundEffectsClass {
                 muteMediaPlayer();
     }
 
-    public void playAnswerSound() {
-            mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\answer sound.mp3").toUri().toString()));
+    public void playAnswerSound() throws URISyntaxException {
+            mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\answer sound.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
             mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
 
@@ -56,8 +55,9 @@ public class SoundEffectsClass {
                 muteMediaPlayer();
     }
 
-    public void playCorrectAnswerSound() {
-            mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\correct answer.mp3").toUri().toString()));
+    public void playCorrectAnswerSound() throws URISyntaxException {
+
+            mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\correct answer.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
             mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
 
@@ -65,8 +65,8 @@ public class SoundEffectsClass {
                 muteMediaPlayer();
     }
 
-    public void playWrongAnswerSound() {
-            mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\wrong answer.mp3").toUri().toString()));
+    public void playWrongAnswerSound() throws URISyntaxException {
+        mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\wrong answer.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
             mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
 
@@ -74,8 +74,8 @@ public class SoundEffectsClass {
                 muteMediaPlayer();
     }
 
-    public void lifebouySound() {
-        mediaPlayer = new MediaPlayer(new Media(Paths.get("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\sounds\\lifebouy sound.mp3").toUri().toString()));
+    public void lifebouySound() throws URISyntaxException {
+        mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\lifebouy sound.mp3").toURI().toString()));
         mediaPlayer.setOnReady(() -> mediaPlayer.play());
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 

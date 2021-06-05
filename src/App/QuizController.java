@@ -26,6 +26,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 
@@ -100,10 +101,19 @@ public class QuizController implements Initializable {
         soundEffectsClass = new SoundEffectsClass();
         PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
         pauseTransition.playFromStart();
-        soundEffectsClass.playQuestionIntroSound();
+        try {
+            soundEffectsClass.playQuestionIntroSound();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         pauseTransition.setOnFinished(e -> {
-            if(!confirmationInProgress)
-                soundEffectsClass.playQuizMusic(iterator);
+            if(!confirmationInProgress) {
+                try {
+                    soundEffectsClass.playQuizMusic(iterator);
+                } catch (URISyntaxException uriSyntaxException) {
+                    uriSyntaxException.printStackTrace();
+                }
+            }
         });
     }
 
@@ -128,7 +138,7 @@ public class QuizController implements Initializable {
     }
 
     @FXML
-    private void onConfirmButtonClick() {
+    private void onConfirmButtonClick() throws URISyntaxException {
         if(answerSelected) {
             if (!confirmationInProgress) {
                 confirmationInProgress = true;
@@ -144,13 +154,21 @@ public class QuizController implements Initializable {
                     highlightCorrectAnswer();
                     if (checkAnswer()) {
                         PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
-                        soundEffectsClass.playCorrectAnswerSound();
+                        try {
+                            soundEffectsClass.playCorrectAnswerSound();
+                        } catch (URISyntaxException uriSyntaxException) {
+                            uriSyntaxException.printStackTrace();
+                        }
                         pt3.setOnFinished(ev1 -> {
                             soundEffectsClass.stopMediaPlayer();
 
                             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
                             pauseTransition.playFromStart();
-                            soundEffectsClass.playQuestionIntroSound();
+                            try {
+                                soundEffectsClass.playQuestionIntroSound();
+                            } catch (URISyntaxException uriSyntaxException) {
+                                uriSyntaxException.printStackTrace();
+                            }
 
                             prepareNewQuizQuestion();
                             confirmationInProgress = false;
@@ -158,15 +176,24 @@ public class QuizController implements Initializable {
                             points++;
 
                             pauseTransition.setOnFinished(ev2 -> {
-                                if(!confirmationInProgress)
-                                    soundEffectsClass.playQuizMusic(iterator);
+                                if(!confirmationInProgress) {
+                                    try {
+                                        soundEffectsClass.playQuizMusic(iterator);
+                                    } catch (URISyntaxException uriSyntaxException) {
+                                        uriSyntaxException.printStackTrace();
+                                    }
+                                }
                             });
                         });
                         pt3.playFromStart();
                     } else {
                             PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
+                        try {
                             soundEffectsClass.playWrongAnswerSound();
-                            pt3.setOnFinished(ev1 -> {
+                        } catch (URISyntaxException uriSyntaxException) {
+                            uriSyntaxException.printStackTrace();
+                        }
+                        pt3.setOnFinished(ev1 -> {
                                 soundEffectsClass.stopMediaPlayer();
 
                                 try {
@@ -212,12 +239,12 @@ public class QuizController implements Initializable {
     }
 
     @FXML
-    private void fiftyFiftyLabelClick() {
+    private void fiftyFiftyLabelClick() throws URISyntaxException {
         if(!confirmationInProgress) {
             if (!fiftyFiftyUsed) {
                 SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
                 soundEffectsClass.lifebouySound();
-                
+
                 fiftyFiftyUsed = true;
                 fiftyFiftyCross.setOpacity(1.0);
                 Random rand = new Random();
@@ -267,7 +294,7 @@ public class QuizController implements Initializable {
     private BarChart<String, Number> voteChart;
 
     @FXML
-    private void phoneLabelClick() {
+    private void phoneLabelClick() throws URISyntaxException {
         if (!confirmationInProgress) {
             if (!phoneCallUsed) {
                 SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
@@ -296,7 +323,7 @@ public class QuizController implements Initializable {
     }
 
     @FXML
-    private void votingLabelClick() {
+    private void votingLabelClick() throws URISyntaxException {
         if (!confirmationInProgress) {
             if (!votingUsed) {
                 SoundEffectsClass soundEffectsClass = new SoundEffectsClass();
@@ -375,7 +402,7 @@ public class QuizController implements Initializable {
         }
     }
 
-    private String calculateScore(){
+    private String calculateScore() {
         String score;
         if(points < 5) {
             score = "0 $";
@@ -463,7 +490,7 @@ public class QuizController implements Initializable {
 
     private void prepareQuestions() {
         try {
-            File script = new File("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\scripts\\script.txt");
+            File script = new File(Main.class.getResource("\\scripts\\script.txt").toURI());
             if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));
                 int iterator = 0;
@@ -480,7 +507,7 @@ public class QuizController implements Initializable {
                 }
                 br.close();
             }
-        } catch (IOException ex) {
+        } catch (IOException | URISyntaxException ex) {
             ex.printStackTrace();
         }
     }

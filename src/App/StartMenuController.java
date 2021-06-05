@@ -12,7 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,7 +30,7 @@ public class StartMenuController implements Initializable {
         soundEffectsClass = new SoundEffectsClass();
         try {
             soundEffectsClass.playIntroMusic();
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
