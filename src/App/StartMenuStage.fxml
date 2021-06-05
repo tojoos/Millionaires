@@ -41,7 +41,7 @@
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="exitButton" layoutX="963.0" layoutY="414.0" mnemonicParsing="false" onMouseEntered="#onExitButtonMouseEntered" onMouseExited="#onExitButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="EXIT" textFill="WHITE">
+            <Button fx:id="exitButton" layoutX="963.0" layoutY="414.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onExitButtonMouseEntered" onMouseExited="#onExitButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="EXIT" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>

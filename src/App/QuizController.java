@@ -45,6 +45,7 @@ public class QuizController implements Initializable {
     private boolean votingUsed = false;
     private static final double PHONE_CALL_ACCURACY = 0.75;
     private static final double VOTING_ACCURACY = 0.90;
+    private SoundEffectsClass soundEffectsClass;
 
     private final String formatSelectedLabelString =
             "-fx-background-color: #f49e0a;" +
@@ -89,12 +90,41 @@ public class QuizController implements Initializable {
     private Button confirmButton;
 
     @FXML
-    private ImageView fiftyFiftyCross, phoneCross, voteCross;
+    private ImageView fiftyFiftyCross, phoneCross, voteCross, volumeIconOn, volumeIconOff;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         prepareQuestions();
         prepareNewQuizQuestion();
+
+        soundEffectsClass = new SoundEffectsClass();
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
+        pauseTransition.playFromStart();
+        soundEffectsClass.playQuestionIntroSound();
+        pauseTransition.setOnFinished(e -> {
+            if(!confirmationInProgress)
+                soundEffectsClass.playQuizMusic(iterator);
+        });
+    }
+
+    @FXML
+    private void volumeIconOffClicked() {
+        soundEffectsClass.unmuteMediaPlayer();
+        volumeIconOff.disableProperty().setValue(true);
+        volumeIconOff.visibleProperty().setValue(false);
+
+        volumeIconOn.disableProperty().setValue(false);
+        volumeIconOn.visibleProperty().setValue(true);
+    }
+
+    @FXML
+    private void volumeIconOnClicked() {
+        soundEffectsClass.muteMediaPlayer();
+        volumeIconOn.disableProperty().setValue(true);
+        volumeIconOn.visibleProperty().setValue(false);
+
+        volumeIconOff.disableProperty().setValue(false);
+        volumeIconOff.visibleProperty().setValue(true);
     }
 
     @FXML
@@ -102,26 +132,54 @@ public class QuizController implements Initializable {
         if(answerSelected) {
             if (!confirmationInProgress) {
                 confirmationInProgress = true;
-                PauseTransition pt1 = new PauseTransition(Duration.seconds(3));
-                pt1.setOnFinished(e -> highlightCorrectAnswer());
+
+                soundEffectsClass.stopMediaPlayer();
+
+                PauseTransition pt1 = new PauseTransition(Duration.seconds(4));
+                soundEffectsClass.playAnswerSound();
                 pt1.playFromStart();
 
-                PauseTransition pt2 = new PauseTransition(Duration.seconds(7));
-                pt2.setOnFinished(e -> {
+                pt1.setOnFinished(e -> {
+                    soundEffectsClass.stopMediaPlayer();
+                    highlightCorrectAnswer();
                     if (checkAnswer()) {
+                        PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
+                        soundEffectsClass.playCorrectAnswerSound();
+                        pt3.setOnFinished(ev1 -> {
+                            soundEffectsClass.stopMediaPlayer();
+
+                            PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
+                            pauseTransition.playFromStart();
+                            soundEffectsClass.playQuestionIntroSound();
+                            pauseTransition.setOnFinished(ev2 -> {
+                                if(!confirmationInProgress)
+                                    soundEffectsClass.playQuizMusic(iterator);
+                            });
+
                             prepareNewQuizQuestion();
                             confirmationInProgress = false;
                             answerSelected = false;
                             points++;
+
+                        });
+                        pt3.playFromStart();
+
                     } else {
-                        try {
-                            showEndGameStage();
-                        } catch (IOException ex) {
-                            ex.printStackTrace();
-                        }
+                            PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
+                            soundEffectsClass.playWrongAnswerSound();
+                            pt3.setOnFinished(ev1 -> {
+                                soundEffectsClass.stopMediaPlayer();
+
+                                try {
+                                    showEndGameStage();
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
+                                }
+                            });
+                            pt3.playFromStart();
+
                     }
                 });
-                pt2.playFromStart();
             }
         }
     }
@@ -228,18 +286,6 @@ public class QuizController implements Initializable {
         phoneCallPane.setVisible(false);
     }
 
-    private Label findCorrectAnswerLabel() {
-        if (correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
-            return answerLabelA;
-        } else if (correctAnswers.get(iterator-1).equals(answerLabelB.getText())) {
-            return answerLabelB;
-        } else if (correctAnswers.get(iterator-1).equals(answerLabelC.getText())) {
-            return answerLabelC;
-        } else  {
-            return answerLabelD;
-        }
-    }
-
     @FXML
     private void votingLabelClick() {
         if(!votingUsed) {
@@ -301,6 +347,18 @@ public class QuizController implements Initializable {
     @FXML
     private void closeVote() {
         votePane.setVisible(false);
+    }
+
+    private Label findCorrectAnswerLabel() {
+        if (correctAnswers.get(iterator-1).equals(answerLabelA.getText())) {
+            return answerLabelA;
+        } else if (correctAnswers.get(iterator-1).equals(answerLabelB.getText())) {
+            return answerLabelB;
+        } else if (correctAnswers.get(iterator-1).equals(answerLabelC.getText())) {
+            return answerLabelC;
+        } else  {
+            return answerLabelD;
+        }
     }
 
     private String calculateScore(){
@@ -385,6 +443,34 @@ public class QuizController implements Initializable {
         DwordLabel.setStyle("-fx-text-fill: #f49e0a;");
     }
 
+    private boolean checkAnswer() {
+        return selectedAnswer.equals(correctAnswers.get(iterator-1));
+    }
+
+    private void prepareQuestions() {
+        try {
+            File script = new File("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\scripts\\script.txt");
+            if(script.canRead()) {
+                BufferedReader br = new BufferedReader(new FileReader(script));
+                int iterator = 0;
+                String line;
+                while ((line = br.readLine()) != null) {
+                    if (iterator % 5 == 0)
+                        questions.add(line);
+                    else if (iterator % 5 >= 1) {
+                        if (iterator % 5 == 1)
+                            correctAnswers.add(line);
+                        answers.add(line);
+                    }
+                    iterator++;
+                }
+                br.close();
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     @FXML
     private void answerChoiceLabelA() {
         if(!confirmationInProgress) {
@@ -426,34 +512,6 @@ public class QuizController implements Initializable {
             answerLabelD.setStyle(formatSelectedLabelString);
             DwordLabel.setStyle("-fx-text-fill: white;");
             selectedAnswer = answerLabelD.getText();
-        }
-    }
-
-    private boolean checkAnswer() {
-        return selectedAnswer.equals(correctAnswers.get(iterator-1));
-    }
-
-    private void prepareQuestions() {
-        try {
-            File script = new File("C:\\Users\\joos\\IdeaProjects\\MillionairesFXApp\\src\\App\\scripts\\script.txt");
-            if(script.canRead()) {
-                BufferedReader br = new BufferedReader(new FileReader(script));
-                int iterator = 0;
-                String line;
-                while ((line = br.readLine()) != null) {
-                    if (iterator % 5 == 0)
-                        questions.add(line);
-                    else if (iterator % 5 >= 1) {
-                        if (iterator % 5 == 1)
-                            correctAnswers.add(line);
-                        answers.add(line);
-                    }
-                    iterator++;
-                }
-                br.close();
-            }
-        } catch (IOException ex) {
-            ex.printStackTrace();
         }
     }
 
@@ -540,5 +598,4 @@ public class QuizController implements Initializable {
     private void votingLabelMouseEntered() {
         votingLabel.setEffect(innerShadowButton);
     }
-
 }

@@ -37,6 +37,11 @@ public class StartMenuController implements Initializable {
     }
 
     @FXML
+    private void onExitButtonClicked() {
+        System.exit(0);
+    }
+
+    @FXML
     private void volumeIconOffClicked() {
         soundEffectsClass.unmuteMediaPlayer();
         volumeIconOff.disableProperty().setValue(true);
