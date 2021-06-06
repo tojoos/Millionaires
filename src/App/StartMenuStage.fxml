@@ -21,27 +21,27 @@
                   <Image url="@images/icon.png" />
                </image>
             </ImageView>
-            <Button fx:id="newGameButton" layoutX="136.0" layoutY="307.0" mnemonicParsing="false" onAction="#onNewGameButton" onMouseEntered="#onNewGameButtonMouseEntered" onMouseExited="#onNewGameButtonMouseExited" prefHeight="28.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="NEW GAME" textFill="WHITE">
+            <Button fx:id="newGameButton" layoutX="136.0" layoutY="307.0" mnemonicParsing="false" onAction="#onNewGameButton" onMouseEntered="#onNewGameButtonMouseEntered" onMouseExited="#onNewGameButtonMouseExited" prefHeight="28.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="NEW GAME" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="rankingButton" layoutX="136.0" layoutY="359.0" mnemonicParsing="false" onMouseEntered="#onrankingButtonMouseEntered" onMouseExited="#onrankingButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="RANKING" textFill="WHITE">
+            <Button fx:id="rankingButton" layoutX="136.0" layoutY="359.0" mnemonicParsing="false" onMouseEntered="#onrankingButtonMouseEntered" onMouseExited="#onrankingButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="RANKING" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="helpButton" layoutX="963.0" layoutY="359.0" mnemonicParsing="false" onMouseEntered="#onhelpButtonMouseEntered" onMouseExited="#onhelpButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="HELP" textFill="WHITE">
+            <Button fx:id="helpButton" layoutX="963.0" layoutY="359.0" mnemonicParsing="false" onMouseEntered="#onhelpButtonMouseEntered" onMouseExited="#onhelpButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="HELP" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="loadScriptButton" layoutX="963.0" layoutY="307.0" mnemonicParsing="false" onMouseEntered="#loadScriptButtonMouseEntered" onMouseExited="#loadScriptButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="LOAD SCRIPT" textFill="WHITE">
+            <Button fx:id="loadScriptButton" layoutX="963.0" layoutY="307.0" mnemonicParsing="false" onMouseEntered="#loadScriptButtonMouseEntered" onMouseExited="#loadScriptButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="LOAD SCRIPT" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="exitButton" layoutX="963.0" layoutY="414.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onExitButtonMouseEntered" onMouseExited="#onExitButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f);" text="EXIT" textFill="WHITE">
+            <Button fx:id="exitButton" layoutX="963.0" layoutY="414.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onExitButtonMouseEntered" onMouseExited="#onExitButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="EXIT" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
