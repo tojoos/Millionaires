@@ -499,15 +499,36 @@ public class QuizController implements Initializable {
                     if (iterator % 5 == 0)
                         questions.add(line);
                     else if (iterator % 5 >= 1) {
-                        if (iterator % 5 == 1)
-                            correctAnswers.add(line);
-                        answers.add(line);
+                            if (iterator % 5 == 1)
+                                correctAnswers.add(line);
+                            answers.add(line);
                     }
                     iterator++;
                 }
                 br.close();
+
+            HashMap<String, String> hashMap = new HashMap<>();
+            for(int i  = 0; i < questions.size(); i++)
+                hashMap.put(questions.get(i),answers.get(4*i) + "~" + answers.get(4*i + 1) + "~" + answers.get(4*i + 2) + "~" + answers.get(4*i + 3));
+
+            ArrayList<String> keys = new ArrayList<>(hashMap.keySet());
+            Collections.shuffle(keys);
+
+            questions.clear();
+            correctAnswers.clear();
+            answers.clear();
+
+                for(String s : keys) {
+                    questions.add(s);
+                    String[] answers = hashMap.get(s).split("~");
+                    correctAnswers.add(answers[0]);
+                    this.answers.add(answers[0]);
+                    this.answers.add(answers[1]);
+                    this.answers.add(answers[2]);
+                    this.answers.add(answers[3]);
+                }
             }
-        } catch (IOException | URISyntaxException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
