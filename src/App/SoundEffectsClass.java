@@ -40,7 +40,7 @@ public class SoundEffectsClass {
     public void playQuestionIntroSound() throws URISyntaxException {
             mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\lets play.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
-            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
+            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 
             if(isMuted)
                 muteMediaPlayer();
@@ -49,7 +49,7 @@ public class SoundEffectsClass {
     public void playAnswerSound() throws URISyntaxException {
             mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\answer sound.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
-            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
+            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 
             if(isMuted)
                 muteMediaPlayer();
@@ -59,7 +59,7 @@ public class SoundEffectsClass {
 
             mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\correct answer.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
-            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
+            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 
             if(isMuted)
                 muteMediaPlayer();
@@ -68,7 +68,7 @@ public class SoundEffectsClass {
     public void playWrongAnswerSound() throws URISyntaxException {
         mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\wrong answer.mp3").toURI().toString()));
             mediaPlayer.setOnReady(() -> mediaPlayer.play());
-            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.seek(Duration.ZERO));
+            mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 
             if(isMuted)
                 muteMediaPlayer();
@@ -76,6 +76,15 @@ public class SoundEffectsClass {
 
     public void lifebouySound() throws URISyntaxException {
         mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\lifebouy sound.mp3").toURI().toString()));
+        mediaPlayer.setOnReady(() -> mediaPlayer.play());
+        mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
+
+        if(isMuted)
+            muteMediaPlayer();
+    }
+
+    public void mainPrizeWonSound() throws URISyntaxException {
+        mediaPlayer = new MediaPlayer(new Media(Main.class.getResource("\\sounds\\main prize won.mp3").toURI().toString()));
         mediaPlayer.setOnReady(() -> mediaPlayer.play());
         mediaPlayer.setOnEndOfMedia(() -> mediaPlayer.stop());
 

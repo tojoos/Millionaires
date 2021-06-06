@@ -38,7 +38,7 @@ public class QuizController implements Initializable {
     private int iterator = 0;
     private int points = 0;
     private String selectedAnswer;
-    private static final int MAX_POINTS = 15;
+    private static final int MAX_POINTS = 1;
     private boolean confirmationInProgress = false;
     private boolean answerSelected = false;
     private boolean fiftyFiftyUsed = false;
@@ -99,13 +99,16 @@ public class QuizController implements Initializable {
         prepareNewQuizQuestion();
 
         soundEffectsClass = new SoundEffectsClass();
+
         PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
         pauseTransition.playFromStart();
+
         try {
             soundEffectsClass.playQuestionIntroSound();
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+
         pauseTransition.setOnFinished(e -> {
             if(!confirmationInProgress) {
                 try {
@@ -142,10 +145,11 @@ public class QuizController implements Initializable {
         if(answerSelected) {
             if (!confirmationInProgress) {
                 confirmationInProgress = true;
+                points++;
 
                 soundEffectsClass.stopMediaPlayer();
 
-                PauseTransition pt1 = new PauseTransition(Duration.seconds(4));
+                PauseTransition pt1 = new PauseTransition(Duration.seconds(5));
                 soundEffectsClass.playAnswerSound();
                 pt1.playFromStart();
 
@@ -153,39 +157,51 @@ public class QuizController implements Initializable {
                     soundEffectsClass.stopMediaPlayer();
                     highlightCorrectAnswer();
                     if (checkAnswer()) {
-                        PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
+                        PauseTransition pt2 = new PauseTransition(Duration.seconds(4));
                         try {
                             soundEffectsClass.playCorrectAnswerSound();
                         } catch (URISyntaxException uriSyntaxException) {
                             uriSyntaxException.printStackTrace();
                         }
-                        pt3.setOnFinished(ev1 -> {
+                        pt2.setOnFinished(ev1 -> {
                             soundEffectsClass.stopMediaPlayer();
 
                             PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
                             pauseTransition.playFromStart();
+
                             try {
+                                if(points < MAX_POINTS)
                                 soundEffectsClass.playQuestionIntroSound();
                             } catch (URISyntaxException uriSyntaxException) {
                                 uriSyntaxException.printStackTrace();
                             }
 
-                            prepareNewQuizQuestion();
-                            confirmationInProgress = false;
-                            answerSelected = false;
-                            points++;
+                            soundEffectsClass.stopMediaPlayer();
 
-                            pauseTransition.setOnFinished(ev2 -> {
-                                if(!confirmationInProgress) {
-                                    try {
-                                        soundEffectsClass.playQuizMusic(iterator);
-                                    } catch (URISyntaxException uriSyntaxException) {
-                                        uriSyntaxException.printStackTrace();
-                                    }
+                            if(points == MAX_POINTS) {
+                                try {
+                                    showMainPrizeWonStage();
+                                } catch (IOException ioException) {
+                                    ioException.printStackTrace();
                                 }
-                            });
+                            } else {
+                                prepareNewQuizQuestion();
+                                confirmationInProgress = false;
+                                answerSelected = false;
+
+                                pauseTransition.setOnFinished(ev2 -> {
+                                    if(!confirmationInProgress) {
+                                            try {
+                                                if(points < MAX_POINTS)
+                                                    soundEffectsClass.playQuizMusic(iterator);
+                                            } catch (URISyntaxException uriSyntaxException) {
+                                                uriSyntaxException.printStackTrace();
+                                            }
+                                    }
+                                });
+                            }
                         });
-                        pt3.playFromStart();
+                        pt2.playFromStart();
                     } else {
                             PauseTransition pt3 = new PauseTransition(Duration.seconds(4));
                         try {
@@ -203,11 +219,23 @@ public class QuizController implements Initializable {
                                 }
                             });
                             pt3.playFromStart();
-
                     }
                 });
             }
         }
+    }
+
+    private void showMainPrizeWonStage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("MainPrizeWonStage.fxml"));
+        Parent root = loader.load();
+        Stage mainPrizeWonStage = new Stage();
+        MainPrizeWonController mainPrizeWonController = loader.getController();
+        mainPrizeWonController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
+        mainPrizeWonStage.initModality(Modality.APPLICATION_MODAL);
+        mainPrizeWonStage.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
+        mainPrizeWonStage.setTitle("Congratulations!");
+        mainPrizeWonStage.setScene(new Scene(root));
+        mainPrizeWonStage.show();
     }
 
     private void showEndGameStage() throws IOException {
