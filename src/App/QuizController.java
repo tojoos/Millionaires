@@ -38,7 +38,7 @@ public class QuizController implements Initializable {
     private int iterator = 0;
     private int points = 0;
     private String selectedAnswer;
-    private static final int MAX_POINTS = 1;
+    private static final int MAX_POINTS = 15;
     private boolean confirmationInProgress = false;
     private boolean answerSelected = false;
     private boolean fiftyFiftyUsed = false;
