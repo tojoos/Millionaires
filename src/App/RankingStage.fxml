@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.*?>
+<?import javafx.scene.effect.*?>
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="787.0" prefWidth="827.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="App.RankingStageController">
+   <children>
+      <ImageView fitHeight="812.0" fitWidth="827.0">
+         <image>
+            <Image url="@images/ranking_background.jpg" />
+         </image>
+      </ImageView>
+      <TableView fx:id="rankingTableView" layoutX="218.0" layoutY="263.0" prefHeight="464.0" prefWidth="392.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+        <columns>
+          <TableColumn fx:id="winningColumn" editable="false" minWidth="100.0" prefWidth="126.0" resizable="false" sortType="DESCENDING" sortable="false" text="Winning" />
+            <TableColumn fx:id="pointsColumn" editable="false" prefWidth="53.0" resizable="false" sortType="DESCENDING" text="Points" />
+            <TableColumn fx:id="dateColumn" editable="false" prefWidth="86.0" resizable="false" sortable="false" text="Date" />
+          <TableColumn fx:id="nameColumn" editable="false" prefWidth="126.0" resizable="false" sortable="false" text="Name" />
+        </columns>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </TableView>
+      <Button fx:id="goToMainMenuButton" layoutX="657.0" layoutY="749.0" mnemonicParsing="false" onAction="#goBackToMainMenuButtonClicked" onMouseEntered="#goToMainMenuButtonMouseEntered" onMouseExited="#goToMainMenuButtonMouseExited" prefHeight="30.0" prefWidth="127.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Go to main menu" textFill="WHITE">
+         <font>
+            <Font name="Times New Roman" size="15.0" />
+         </font>
+      </Button>
+      <ImageView fx:id="volumeIconOff" fitHeight="24.0" fitWidth="31.0" layoutX="516.0" layoutY="145.0" onMouseClicked="#volumeIconOffClicked" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@images/volume_icon_off.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="volumeIconOn" fitHeight="24.0" fitWidth="31.0" layoutX="516.0" layoutY="145.0" onMouseClicked="#volumeIconOnClicked" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/volume_icon_on.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -20,7 +20,6 @@ public class Main extends Application {
         window.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
         window.setScene(new Scene(root));
         window.show();
-        
     }
 
 }

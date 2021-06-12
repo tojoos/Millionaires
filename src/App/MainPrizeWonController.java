@@ -1,28 +1,29 @@
 package App;
 
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
-import javax.sound.midi.Transmitter;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class MainPrizeWonController implements Initializable {
     private Stage quizStage;
     private SoundEffectsClass soundEffectsClass;
+    private boolean submitButtonClicked = false;
 
     @FXML
     private Button playAgainButton, goToMainMenuButton, submitScoreButton;
@@ -85,6 +86,35 @@ public class MainPrizeWonController implements Initializable {
         if(quizStage != null) {
             quizStage.setScene(new Scene(root));
             quizStage.show();
+        }
+    }
+
+    @FXML
+    private TextField submitScoreTextField;
+
+    @FXML
+    private Label submittedLabel;
+
+    @FXML
+    private void onSubmitScoreButtonClicked() {
+        if(!submitButtonClicked) {
+            if (submitScoreTextField.getText().equals("")) {
+                InnerShadow innerShadow = new InnerShadow(10,0.5,0.5,Color.web("#ff0000"));
+                innerShadow.setChoke(0.3);
+                innerShadow.setWidth(21.0);
+                innerShadow.setHeight(21.0);
+                submitScoreTextField.setEffect(innerShadow);
+            } else {
+                String dateString = LocalDateTime.now().toString();
+                dateString = dateString.substring(0, 10);
+                String stringDataRecord = "";
+                stringDataRecord += "\n" + "1.000.000 $" + "~" + 15 + "~" + dateString + "~" + submitScoreTextField.getText();
+                RankingFileManagerClass.addDataToRankingFile(stringDataRecord);
+                submitButtonClicked = true;
+                submitScoreTextField.setEffect(null);
+            }
+        } else {
+            submittedLabel.visibleProperty().setValue(true);
         }
     }
 

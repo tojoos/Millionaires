@@ -245,6 +245,7 @@ public class QuizController implements Initializable {
         EndGameController endGameController = loader.getController();
         endGameController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
         endGameController.setScore(calculateScore());
+        endGameController.transferPoints(points);
         endGameStage.initModality(Modality.APPLICATION_MODAL);
         endGameStage.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
         endGameStage.setTitle("Game over");
