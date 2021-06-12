@@ -83,7 +83,7 @@ public class EndGameController {
                 String dateString = LocalDateTime.now().toString();
                 dateString = dateString.substring(0, 10);
                 String stringDataRecord = "";
-                stringDataRecord += "\n" + score + "~" + points + "~" + dateString + "~" + submitScoreTextField.getText();
+                stringDataRecord += "\n" + score + "~" + (points-1) + "~" + dateString + "~" + submitScoreTextField.getText();
                 RankingFileManagerClass.addDataToRankingFile(stringDataRecord);
                 submitButtonClicked = true;
                 submitScoreTextField.setEffect(null);
