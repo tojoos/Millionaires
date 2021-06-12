@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -12,7 +13,7 @@
             <Font name="Times New Roman Bold" size="30.0" />
          </font>
       </Label>
-      <TextField layoutX="44.0" layoutY="131.0" prefHeight="30.0" prefWidth="188.0" promptText="name" />
+      <TextField fx:id="submitScoreTextField" layoutX="44.0" layoutY="124.0" prefHeight="30.0" prefWidth="188.0" promptText="name" />
       <Button fx:id="playAgainButton" layoutX="44.0" layoutY="176.0" mnemonicParsing="false" onAction="#playAgainButtonClicked" onMouseEntered="#playAgainButtonMouseEntered" onMouseExited="#playAgainButtonMouseExited" prefHeight="25.0" prefWidth="114.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Play again" textFill="WHITE">
          <font>
             <Font name="Times New Roman" size="15.0" />
@@ -32,10 +33,15 @@
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="submitScoreButton" layoutX="240.0" layoutY="131.0" mnemonicParsing="false" onMouseEntered="#submitScoreButtonMouseEntered" onMouseExited="#submitScoreButtonMouseExited" prefHeight="0.0" prefWidth="89.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Submit" textFill="WHITE">
+      <Button fx:id="submitScoreButton" layoutX="240.0" layoutY="124.0" mnemonicParsing="false" onAction="#onSubmitScoreButtonClicked" onMouseEntered="#submitScoreButtonMouseEntered" onMouseExited="#submitScoreButtonMouseExited" prefHeight="0.0" prefWidth="89.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565);" text="Submit" textFill="WHITE">
          <font>
             <Font name="Times New Roman" size="15.0" />
          </font>
       </Button>
+      <Label fx:id="submittedLabel" layoutX="44.0" layoutY="154.0" text="You have already submitted your score" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Times New Roman" size="12.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

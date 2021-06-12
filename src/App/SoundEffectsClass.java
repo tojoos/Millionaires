@@ -105,4 +105,8 @@ public class SoundEffectsClass {
         this.isMuted = false;
         mediaPlayer.setMute(false);
     }
+
+    public boolean isMuted() {
+        return this.isMuted;
+    }
 }

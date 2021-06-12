@@ -12,6 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -27,7 +28,7 @@ public class StartMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        soundEffectsClass = new SoundEffectsClass();
+            soundEffectsClass = new SoundEffectsClass();
         try {
             soundEffectsClass.playIntroMusic();
         } catch (Exception e) {
@@ -35,10 +36,6 @@ public class StartMenuController implements Initializable {
         }
     }
 
-    @FXML
-    private void onExitButtonClicked() {
-        System.exit(0);
-    }
 
     @FXML
     private void volumeIconOffClicked() {
@@ -68,6 +65,23 @@ public class StartMenuController implements Initializable {
         quizStage.setScene(new Scene(root));
         quizStage.show();
         soundEffectsClass.stopMediaPlayer();
+    }
+
+    @FXML
+    private void onExitButtonClicked() {
+        System.exit(0);
+    }
+
+    @FXML
+    private void onRankingButtonClicked() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RankingStage.fxml"));
+        Parent root = loader.load();
+        RankingStageController rankingStageController = loader.getController();
+        rankingStageController.transferQuizStage((Stage) newGameButton.getScene().getWindow());
+        rankingStageController.transferMediaPlayer(soundEffectsClass);
+        Stage rankingStage = (Stage) newGameButton.getScene().getWindow();
+        rankingStage.setScene(new Scene(root));
+        rankingStage.show();
     }
 
     /* --- cosmetic --- */
