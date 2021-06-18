@@ -26,7 +26,7 @@ public class RankingFileManagerClass {
                 while (fileScanner.hasNextLine()) {
                     String line = fileScanner.nextLine();
                     String[] separatedLine = line.split("~");
-                    records.add(new RankingRecord(separatedLine[0], Integer.parseInt(separatedLine[1]), separatedLine[2], separatedLine[3]));
+                    records.add(new RankingRecord(separatedLine[0], Integer.parseInt(separatedLine[1]), separatedLine[2], separatedLine[3], separatedLine[4]));
                 }
             }
         } catch (Exception ex) {

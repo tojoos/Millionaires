@@ -5,14 +5,23 @@ public class RankingRecord {
     private String winning;
     private String date;
     private int points;
+    private String script;
 
-    public RankingRecord(String winning, int points, String date, String name) {
+    public RankingRecord(String winning, int points, String date, String name, String script) {
         this.name = name;
         this.winning = winning;
         this.date = date;
         this.points = points;
+        this.script = script;
     }
 
+    public String getScript() {
+        return script;
+    }
+
+    public void setScript(String script) {
+        this.script = script;
+    }
 
     public String getName() {
         return name;

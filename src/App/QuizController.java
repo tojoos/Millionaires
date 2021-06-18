@@ -35,6 +35,7 @@ public class QuizController implements Initializable {
     private List<String> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
     private List<String> correctAnswers = new ArrayList<>();
+    private File scriptFile;
     private int iterator = 0;
     private int points = 0;
     private String selectedAnswer;
@@ -95,9 +96,6 @@ public class QuizController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        prepareQuestions();
-        prepareNewQuizQuestion();
-
         soundEffectsClass = new SoundEffectsClass();
 
         PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
@@ -118,6 +116,15 @@ public class QuizController implements Initializable {
                 }
             }
         });
+    }
+
+    public void initializeQuizQuestions() {
+        prepareQuestions();
+        prepareNewQuizQuestion();
+    }
+
+    public void transferScriptFile(File scriptFile) {
+        this.scriptFile = scriptFile;
     }
 
     @FXML
@@ -231,6 +238,7 @@ public class QuizController implements Initializable {
         Stage mainPrizeWonStage = new Stage();
         MainPrizeWonController mainPrizeWonController = loader.getController();
         mainPrizeWonController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
+        mainPrizeWonController.transferScript(scriptFile.getName());
         mainPrizeWonStage.initModality(Modality.APPLICATION_MODAL);
         mainPrizeWonStage.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
         mainPrizeWonStage.setTitle("Congratulations!");
@@ -244,6 +252,7 @@ public class QuizController implements Initializable {
         Stage endGameStage = new Stage();
         EndGameController endGameController = loader.getController();
         endGameController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
+        endGameController.transferScript(scriptFile.getName());
         endGameController.setScore(calculateScore());
         endGameController.transferPoints(points);
         endGameStage.initModality(Modality.APPLICATION_MODAL);
@@ -519,7 +528,7 @@ public class QuizController implements Initializable {
 
     private void prepareQuestions() {
         try {
-            File script = new File(Main.class.getResource("\\scripts\\script.txt").toURI());
+            File script = scriptFile;
             if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));
                 int iterator = 0;

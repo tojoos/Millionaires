@@ -15,12 +15,13 @@
             <Image url="@images/ranking_background.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="rankingTableView" layoutX="218.0" layoutY="263.0" prefHeight="464.0" prefWidth="392.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
+      <TableView fx:id="rankingTableView" layoutX="183.0" layoutY="270.0" prefHeight="464.0" prefWidth="461.0" style="-fx-background-radius: 10; -fx-border-radius: 10;">
         <columns>
-          <TableColumn fx:id="winningColumn" editable="false" minWidth="100.0" prefWidth="126.0" resizable="false" sortType="DESCENDING" sortable="false" text="Winning" />
-            <TableColumn fx:id="pointsColumn" editable="false" prefWidth="53.0" resizable="false" sortType="DESCENDING" text="Points" />
-            <TableColumn fx:id="dateColumn" editable="false" prefWidth="86.0" resizable="false" sortable="false" text="Date" />
-          <TableColumn fx:id="nameColumn" editable="false" prefWidth="126.0" resizable="false" sortable="false" text="Name" />
+          <TableColumn fx:id="winningColumn" editable="false" minWidth="100.0" prefWidth="119.0" resizable="false" sortType="DESCENDING" sortable="false" text="Winning" />
+            <TableColumn fx:id="pointsColumn" editable="false" prefWidth="57.0" resizable="false" sortType="DESCENDING" text="Points" />
+            <TableColumn fx:id="dateColumn" editable="false" prefWidth="84.0" resizable="false" sortable="false" text="Date" />
+            <TableColumn fx:id="scriptColumn" prefWidth="94.0" text="Script" />
+          <TableColumn fx:id="nameColumn" editable="false" prefWidth="106.0" resizable="false" sortable="false" text="Name" />
         </columns>
          <cursor>
             <Cursor fx:constant="DEFAULT" />

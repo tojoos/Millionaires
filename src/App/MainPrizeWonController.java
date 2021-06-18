@@ -24,6 +24,7 @@ public class MainPrizeWonController implements Initializable {
     private Stage quizStage;
     private SoundEffectsClass soundEffectsClass;
     private boolean submitButtonClicked = false;
+    private String currentScript;
 
     @FXML
     private Button playAgainButton, goToMainMenuButton, submitScoreButton;
@@ -39,6 +40,10 @@ public class MainPrizeWonController implements Initializable {
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }
+    }
+
+    public void transferScript(String currentScript) {
+        this.currentScript = currentScript;
     }
 
     public void transferQuizStage(Stage quizStage) {
