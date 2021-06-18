@@ -526,7 +526,6 @@ public class QuizController implements Initializable {
 
     private void prepareQuestions() {
         try {
-            //File script = new File(Main.class.getResource("\\scripts\\script.txt").toURI());
             File script = scriptFile;
             if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));

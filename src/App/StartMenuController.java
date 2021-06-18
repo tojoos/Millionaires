@@ -16,13 +16,16 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class StartMenuController implements Initializable {
@@ -58,7 +61,6 @@ public class StartMenuController implements Initializable {
     }
 
     private void createScriptChoiceBox() {
-        // zrobic do tego jeszcze przycisk wczytujacy nowy skrytp
         ObservableList<String> scriptNames = FXCollections.observableArrayList();
         for(File f : scripts) {
             scriptNames.add(f.toString().substring(f.toString().lastIndexOf("\\")+1));
@@ -192,6 +194,32 @@ public class StartMenuController implements Initializable {
         Stage rankingStage = (Stage) newGameButton.getScene().getWindow();
         rankingStage.setScene(new Scene(root));
         rankingStage.show();
+    }
+
+    @FXML
+    private void onLoadScriptButtonClicked() {
+        ObservableList<File> helpList = FXCollections.observableArrayList();
+        FileChooser scriptBrowser = new FileChooser();
+        scriptBrowser.setTitle("Add new script");
+        FileChooser.ExtensionFilter txtExtensionFilter = new FileChooser.ExtensionFilter("Allowed formats: .txt","*.txt");
+        scriptBrowser.getExtensionFilters().add(txtExtensionFilter);
+        List<File> scriptFiles = scriptBrowser.showOpenMultipleDialog(newGameButton.getScene().getWindow());
+        File destination = new File("src\\App\\scripts");
+        if(scriptFiles != null) {
+            for(File f : scriptFiles) {
+                try {
+                    if(!scripts.contains(new File("src\\App\\scripts\\" + f.getName()))) {
+                        Files.copy(f.toPath(),new File(destination + "\\" + f.getName()).toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        helpList.add(f);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+            scripts.clear();
+            scripts.addAll(helpList);
+            createScriptChoiceBox();
+        }
     }
 
     /* --- cosmetic --- */
