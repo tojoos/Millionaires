@@ -40,6 +40,9 @@ public class RankingStageController implements Initializable {
     private TableColumn<RankingRecord, String> nameColumn;
 
     @FXML
+    private TableColumn<RankingRecord, String> scriptColumn;
+
+    @FXML
     Button goToMainMenuButton;
 
     @FXML
@@ -51,10 +54,11 @@ public class RankingStageController implements Initializable {
     }
 
     private void loadRankingTable() {
-        if(winningColumn!=null) {
+        if(winningColumn != null) {
             winningColumn.setCellValueFactory(new PropertyValueFactory<>("winning"));
             pointsColumn.setCellValueFactory(new PropertyValueFactory<>("points"));
             dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
+            scriptColumn.setCellValueFactory(new PropertyValueFactory<>("script"));
             nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             
             rankingTableView.setItems(RankingFileManagerClass.getObservableListOfRecords());

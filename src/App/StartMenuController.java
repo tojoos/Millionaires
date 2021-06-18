@@ -49,13 +49,12 @@ public class StartMenuController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-            soundEffectsClass = new SoundEffectsClass();
+        soundEffectsClass = new SoundEffectsClass();
         try {
             soundEffectsClass.playIntroMusic();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         loadScripts();
         createScriptChoiceBox();
     }
@@ -65,7 +64,6 @@ public class StartMenuController implements Initializable {
         for(File f : scripts) {
             scriptNames.add(f.toString().substring(f.toString().lastIndexOf("\\")+1));
         }
-        //dodac w rankingu rodzaj quizu
 
         scriptDisplayChoiceBox.getItems().addAll(scriptNames);
         scriptDisplayChoiceBox.getSelectionModel().select(0);
@@ -94,17 +92,15 @@ public class StartMenuController implements Initializable {
                         }
                     }
                 });
-
     }
 
     private boolean isScriptValid(File script) {
         try {
-            if (script.canRead()) {
+            if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));
                 int iterator = 0;
-                while (br.readLine() != null) {
+                while(br.readLine() != null)
                     iterator++;
-                    }
                 br.close();
                 if(iterator >= 75) {
                     return true;
@@ -124,7 +120,6 @@ public class StartMenuController implements Initializable {
         scripts = FXCollections.observableArrayList();
         try {
             File rankingDir = new File("src\\App\\scripts");
-
             if (rankingDir.exists()) {
                 File[] scriptFiles = rankingDir.listFiles((dir, name) -> name.endsWith(".txt"));
                 if(scriptFiles != null)
@@ -132,7 +127,6 @@ public class StartMenuController implements Initializable {
             } else {
                 Files.createDirectory(rankingDir.toPath());
             }
-
             } catch (IOException e) {
             e.printStackTrace();
         }

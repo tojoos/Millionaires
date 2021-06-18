@@ -19,6 +19,7 @@ public class EndGameController {
     private Stage quizStage;
     private int points;
     private String score;
+    private String currentScript;
     private boolean submitButtonClicked = false;
 
     @FXML
@@ -37,6 +38,10 @@ public class EndGameController {
 
     public void transferPoints(int points) {
         this.points = points;
+    }
+
+    public void transferScript(String currentScript) {
+        this.currentScript = currentScript;
     }
 
     @FXML
@@ -83,7 +88,7 @@ public class EndGameController {
                 String dateString = LocalDateTime.now().toString();
                 dateString = dateString.substring(0, 10);
                 String stringDataRecord = "";
-                stringDataRecord += "\n" + score + "~" + (points-1) + "~" + dateString + "~" + submitScoreTextField.getText();
+                stringDataRecord += "\n" + score + "~" + (points-1) + "~" + dateString + "~" + submitScoreTextField.getText() + "~" + currentScript;
                 RankingFileManagerClass.addDataToRankingFile(stringDataRecord);
                 submitButtonClicked = true;
                 submitScoreTextField.setEffect(null);
