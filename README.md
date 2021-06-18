@@ -13,7 +13,7 @@
 ### Currently working on:
 - [x] audio part of application - sounds and music in particular game moments.
 - [x] intuitive navigation within application
-- [ ] local ranking stored in database
+- [x] local ranking stored in database
 - [ ] script loader
 
 # App preview:
@@ -21,3 +21,4 @@
 ![Game_Window_1](https://user-images.githubusercontent.com/79639840/120033576-07e45380-bffc-11eb-8ad6-64712a5b2189.png)
 ![Game_Window_2](https://user-images.githubusercontent.com/79639840/120033581-087cea00-bffc-11eb-9ffa-dd7b94b2d365.png)
 ![Main prize winning stage](https://user-images.githubusercontent.com/79639840/120937197-76b46180-c70c-11eb-8bbe-376979298bf0.png)
+![Ranking Window](https://user-images.githubusercontent.com/79639840/121773664-aa184580-cb7d-11eb-9533-5c0662e162b3.png)
