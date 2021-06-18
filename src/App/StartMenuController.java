@@ -25,6 +25,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -87,7 +88,7 @@ public class StartMenuController implements Initializable {
                             isScriptValidLabel.setText("Valid");
                             isScriptValidLabel.setStyle("-fx-text-fill: green");
                         } else {
-                            isScriptValidLabel.setText("Invalid");
+                            isScriptValidLabel.setText("15 Question sets required");
                             isScriptValidLabel.setStyle("-fx-text-fill: red");
                         }
                     }
@@ -99,10 +100,15 @@ public class StartMenuController implements Initializable {
             if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));
                 int iterator = 0;
-                while(br.readLine() != null)
+                String s;
+                HashSet<String> uniqueQuestions = new HashSet<>();
+                while(( s = br.readLine()) != null) {
+                    if(iterator %5 == 0)
+                        uniqueQuestions.add(s);
                     iterator++;
+                }
                 br.close();
-                if(iterator >= 75) {
+                if(iterator >= 75 && uniqueQuestions.size() >= 15) {
                     return true;
                 } else {
                     return false;
