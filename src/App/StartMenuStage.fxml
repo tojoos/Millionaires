@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import java.lang.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
@@ -26,12 +27,7 @@
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="rankingButton" layoutX="136.0" layoutY="359.0" mnemonicParsing="false" onAction="#onRankingButtonClicked" onMouseEntered="#onrankingButtonMouseEntered" onMouseExited="#onrankingButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="RANKING" textFill="WHITE">
-               <font>
-                  <Font name="Times New Roman" size="20.0" />
-               </font>
-            </Button>
-            <Button fx:id="helpButton" layoutX="963.0" layoutY="359.0" mnemonicParsing="false" onMouseEntered="#onhelpButtonMouseEntered" onMouseExited="#onhelpButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="HELP" textFill="WHITE">
+            <Button fx:id="rankingButton" layoutX="136.0" layoutY="354.0" mnemonicParsing="false" onAction="#onRankingButtonClicked" onMouseEntered="#onrankingButtonMouseEntered" onMouseExited="#onrankingButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="RANKING" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
@@ -41,7 +37,7 @@
                   <Font name="Times New Roman" size="20.0" />
                </font>
             </Button>
-            <Button fx:id="exitButton" layoutX="963.0" layoutY="414.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onExitButtonMouseEntered" onMouseExited="#onExitButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="EXIT" textFill="WHITE">
+            <Button fx:id="exitButton" layoutX="136.0" layoutY="400.0" mnemonicParsing="false" onAction="#onExitButtonClicked" onMouseEntered="#onExitButtonMouseEntered" onMouseExited="#onExitButtonMouseExited" prefHeight="37.0" prefWidth="181.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" text="EXIT" textFill="WHITE">
                <font>
                   <Font name="Times New Roman" size="20.0" />
                </font>
@@ -56,6 +52,21 @@
                   <Image url="@images/volume_icon_off.png" />
                </image>
             </ImageView>
+            <Button layoutX="963.0" layoutY="353.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" style="-fx-background-radius: 10; -fx-background-color: linear-gradient(#9438f1,#65028f); -fx-border-color: linear-gradient(#bdbcbc,#676565); -fx-border-radius: 10;" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="20.0" />
+               </font>
+            </Button>
+            <Label alignment="CENTER" layoutX="988.0" layoutY="363.0" prefHeight="21.0" prefWidth="131.0" text="Current script:" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman" size="19.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="scriptDisplayChoiceBox" layoutX="979.0" layoutY="388.0" prefWidth="150.0" />
+            <Label fx:id="isScriptValidLabel" alignment="CENTER" layoutX="1015.0" layoutY="412.0" prefHeight="17.0" prefWidth="76.0" text="Valid/Invalid" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font></Label>
          </children>
       </AnchorPane>
    </center>

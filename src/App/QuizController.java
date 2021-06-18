@@ -35,6 +35,7 @@ public class QuizController implements Initializable {
     private List<String> questions = new ArrayList<>();
     private List<String> answers = new ArrayList<>();
     private List<String> correctAnswers = new ArrayList<>();
+    private File scriptFile;
     private int iterator = 0;
     private int points = 0;
     private String selectedAnswer;
@@ -95,9 +96,6 @@ public class QuizController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        prepareQuestions();
-        prepareNewQuizQuestion();
-
         soundEffectsClass = new SoundEffectsClass();
 
         PauseTransition pauseTransition = new PauseTransition(Duration.seconds(3.5));
@@ -118,6 +116,15 @@ public class QuizController implements Initializable {
                 }
             }
         });
+    }
+
+    public void initializeQuizQuestions() {
+        prepareQuestions();
+        prepareNewQuizQuestion();
+    }
+
+    public void transferScriptFile(File scriptFile) {
+        this.scriptFile = scriptFile;
     }
 
     @FXML
@@ -519,7 +526,8 @@ public class QuizController implements Initializable {
 
     private void prepareQuestions() {
         try {
-            File script = new File(Main.class.getResource("\\scripts\\script.txt").toURI());
+            //File script = new File(Main.class.getResource("\\scripts\\script.txt").toURI());
+            File script = scriptFile;
             if(script.canRead()) {
                 BufferedReader br = new BufferedReader(new FileReader(script));
                 int iterator = 0;
