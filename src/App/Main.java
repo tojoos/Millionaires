@@ -18,6 +18,7 @@ public class Main extends Application {
         window.setTitle("Millionaires");
         Parent root = FXMLLoader.load(getClass().getResource("StartMenuStage.fxml"));
         window.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
+        window.setResizable(false);
         window.setScene(new Scene(root));
         window.show();
     }

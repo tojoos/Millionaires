@@ -239,6 +239,7 @@ public class QuizController implements Initializable {
         MainPrizeWonController mainPrizeWonController = loader.getController();
         mainPrizeWonController.transferQuizStage((Stage) answerLabelA.getScene().getWindow());
         mainPrizeWonController.transferScript(scriptFile.getName());
+        mainPrizeWonStage.setResizable(false);
         mainPrizeWonStage.initModality(Modality.APPLICATION_MODAL);
         mainPrizeWonStage.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
         mainPrizeWonStage.setTitle("Congratulations!");
@@ -255,6 +256,7 @@ public class QuizController implements Initializable {
         endGameController.transferScript(scriptFile.getName());
         endGameController.setScore(calculateScore());
         endGameController.transferPoints(points);
+        endGameStage.setResizable(false);
         endGameStage.initModality(Modality.APPLICATION_MODAL);
         endGameStage.getIcons().add(new Image(Main.class.getResourceAsStream("images\\icon.png")));
         endGameStage.setTitle("Game over");
